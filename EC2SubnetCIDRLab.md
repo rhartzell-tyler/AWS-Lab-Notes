@@ -49,6 +49,42 @@ This lab explores subnet design within a `10.0.0.0/16` VPC using various CIDR bl
 > AWS reserves 5 IPs per subnet: network address, broadcast, plus 3 internal use addresses.
 
 ---
+## 🧮 Subnet Address Calculation
+
+To calculate the **total number of IPs** in a subnet:
+
+```
+Total IPs = 2^(32 - subnet_mask_bits)
+```
+
+To calculate **usable IPs in AWS**:
+
+```
+Usable IPs = 2^(32 - subnet_mask_bits) - 5
+```
+
+> AWS reserves 5 IPs per subnet: network address, broadcast address (even though AWS doesn't use it), and 3 internal network services (e.g., DNS, router, and future use).
+
+---
+
+## 🧾 Example Breakdown
+
+| CIDR     | Subnet Mask Bits | Formula                 | Total IPs | Usable IPs (AWS) |
+|----------|------------------|--------------------------|-----------|------------------|
+| /28      | 28               | 2^(32 − 28) = 16         | 16        | 11               |
+| /24      | 24               | 2^(32 − 24) = 256        | 256       | 251              |
+| /20      | 20               | 2^(32 − 20) = 4,096      | 4,096     | 4,091            |
+| /16      | 16               | 2^(32 − 16) = 65,536     | 65,536    | 65,531           |
+
+---
+
+## 💡 Quick Reference
+
+- Each bit you “give” to hosts **doubles** the IPs.
+- `/32` = 1 IP (typically a loopback or host route)
+- `/0` = the entire IPv4 space
+
+---
 
 ## 🔚 Summary
 
