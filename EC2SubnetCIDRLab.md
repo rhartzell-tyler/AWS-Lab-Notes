@@ -26,7 +26,14 @@ This lab explores subnet design within a `10.0.0.0/16` VPC using various CIDR bl
 ---
 
 ## 🧭 Visual Hierarchy
-10.0.0.0/16 (VPC) ├── 10.0.0.0/20 (Public subnet) ├── 10.0.16.0/24 (Private subnet) ├── 10.0.17.0/28 (NAT or endpoint subnet) └── 10.0.17.16/28 (DMZ or microservice subnet)
+
+```
+10.0.0.0/16 (VPC)
+├── 10.0.0.0/20       Public subnet
+├── 10.0.16.0/24      Private subnet
+├── 10.0.17.0/28      NAT or endpoint subnet
+└── 10.0.17.16/28     DMZ or microservice subnet
+```
 
 ---
 
