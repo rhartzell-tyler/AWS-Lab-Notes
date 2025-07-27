@@ -37,7 +37,7 @@
 
   🔗 [Subnet CIDR Lab](./EC2SubnetCIDRLab.md)  
   🔗 [Gateway Endpoint to S3 Lab](./PrivateSubnetWithGatewayEndpointToS3.md)  
-  🔗 [EC2 Networking Scenarios](./EC2NetworkingAndPerfirmanceScenarios.md)
+  🔗 [EC2 Networking Scenarios](./EC2%20Networking%20and%20Perfirmance%20Scenarios.md)
 
   **❓ Sample Question:**  
   _Which networking component enables private subnet traffic to access S3 without using NAT or Internet Gateway?_  
