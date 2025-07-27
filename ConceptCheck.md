@@ -188,3 +188,583 @@
 🔗 [Cost Explorer](https://docs.aws.amazon.com/cost-management/latest/userguide/cost-explorer.html)  
 🔗 [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html)
 
+---
+
+### 🧨 Compute — Gotchas & Multi-Choice
+
+❓ What happens if you assign a public IP to an EC2 instance but place it in a private subnet without IGW?
+<details>
+<summary>Show Answer</summary>
+⚠️ It won't be reachable from the internet. Public IP must be paired with a subnet that has a route to the Internet Gateway.
+</details>
+
+❓ Can you attach an Auto Scaling Group to an EC2 instance directly?
+<details>
+<summary>Show Answer</summary>
+⛔ No. ASG launches instances based on Launch Templates or Configurations—you can't “attach” an existing instance.
+</details>
+
+❓ What’s the default timeout for an AWS Lambda function?
+<details>
+<summary>Show Answer</summary>
+⏱️ 3 seconds  
+🔧 Adjustable up to 15 minutes
+</details>
+
+❓ How does AWS Fargate pricing differ from EC2-backed ECS?
+<details>
+<summary>Show Answer</summary>
+💸 You pay per vCPU and memory, not instance hours. No EC2 management means no reserved or spot savings.
+</details>
+
+❓ Which service allows batch job orchestration without manual provisioning?
+<details>
+<summary>Show Answer</summary>
+✅ AWS Batch  
+📦 It auto-manages compute environments and job queues behind the scenes.
+</details>
+
+---
+
+### 📚 Compute — Multi-Choice Questions
+
+❓ Which compute service is best for running containers with zero infrastructure management?
+
+A. EC2  
+B. ECS (EC2-backed)  
+C. AWS Fargate  
+D. AWS Batch
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: C. AWS Fargate  
+💬 Runs containers serverlessly; no cluster to manage.
+</details>
+
+❓ Which EC2 purchase option provides steep discounts but risks interruption?
+
+A. Reserved Instances  
+B. On-Demand  
+C. Spot Instances  
+D. Savings Plans  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: C. Spot Instances  
+💬 Great for fault-tolerant, stateless workloads.
+</details>
+
+❓ When building a Lambda function with long compute times, which option should you consider?
+
+A. Step Functions  
+B. Increase timeout to 15 mins  
+C. Move to Fargate  
+D. All of the above  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: D. All of the above  
+💬 Depends on use case and architectural needs.
+</details>
+
+❓ In AWS Batch, what’s required to submit jobs?
+
+A. ECS Cluster  
+B. Job Queue  
+C. Compute Environment  
+D. Both B & C  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: D. Both B & C  
+📌 Job queues funnel tasks, and compute environments do the execution.
+</details>
+
+---
+
+### 🧨 Networking — Gotchas & Multi-Choice
+
+❓ What happens if a subnet has an internet gateway attached but no route to it in the route table?
+<details>
+<summary>Show Answer</summary>
+🚫 Instances in the subnet will not have internet access. IGW must be explicitly routed.
+</details>
+
+❓ Can two VPCs with overlapping CIDR blocks be peered?
+<details>
+<summary>Show Answer</summary>
+⛔ No. Overlapping CIDRs prevent VPC peering.
+</details>
+
+❓ Which endpoint type supports S3 and DynamoDB only?
+<details>
+<summary>Show Answer</summary>
+🏁 Gateway Endpoints (not Interface Endpoints)
+</details>
+
+❓ What happens if NAT Gateway resides in a failed AZ?
+<details>
+<summary>Show Answer</summary>
+❌ No outbound internet for subnets routed through it—ensure multi-AZ NATs.
+</details>
+
+❓ Does Traffic Mirroring work across VPCs or Regions?
+<details>
+<summary>Show Answer</summary>
+🚫 No—it only operates within the same VPC and Region.
+</details>
+
+---
+
+### 📚 Networking — Multi-Choice Questions
+
+❓ What’s required for public internet access in a VPC?
+
+A. Public IP  
+B. Route Table entry  
+C. Subnet association with IGW  
+D. All of the above  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: D. All of the above  
+💬 Each component must be properly configured for connectivity.
+</details>
+
+❓ Which service connects VPCs using a central hub architecture?
+
+A. VPC Peering  
+B. VPN Gateway  
+C. Transit Gateway  
+D. Interface Endpoint  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: C. Transit Gateway  
+📌 It’s the scalable option for multi-VPC routing.
+</details>
+
+❓ Which endpoint type requires private DNS and ENI within your subnet?
+
+A. Gateway Endpoint  
+B. Interface Endpoint  
+C. NAT Gateway  
+D. VPN Endpoint  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: B. Interface Endpoint  
+🔎 It provisions elastic network interfaces in the VPC.
+</details>
+
+❓ You need to mirror network traffic from EC2 instances for deep packet inspection. Which service should you use?
+
+A. VPC Flow Logs  
+B. AWS Config  
+C. CloudTrail  
+D. Traffic Mirroring  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: D. Traffic Mirroring  
+💬 It captures actual network packets for analysis.
+</details>
+
+---
+
+### 🧨 Storage — Gotchas & Multi-Choice
+
+❓ Can S3 Glacier objects be retrieved instantly?
+<details>
+<summary>Show Answer</summary>
+🚫 No. Glacier retrieval typically takes minutes to hours depending on the tier.
+</details>
+
+❓ What happens if versioning is not enabled on an S3 bucket when an object is deleted?
+<details>
+<summary>Show Answer</summary>
+❌ The object is permanently deleted—no recovery without versioning.
+</details>
+
+❓ Does S3 cross-region replication work retroactively?
+<details>
+<summary>Show Answer</summary>
+🕒 No. It only replicates changes going forward after enabling replication.
+</details>
+
+❓ Can S3 bucket policies override IAM user permissions?
+<details>
+<summary>Show Answer</summary>
+✅ Yes. Bucket policies are evaluated alongside IAM—deny in either will block access.
+</details>
+
+---
+
+### 📚 Storage — Multi-Choice Questions
+
+❓ Which S3 storage class has the lowest storage cost but highest retrieval latency?
+
+A. S3 Intelligent-Tiering  
+B. S3 Glacier  
+C. S3 One Zone-IA  
+D. S3 Glacier Deep Archive  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: D. S3 Glacier Deep Archive  
+📦 Ideal for long-term archives with hours-scale retrieval.
+</details>
+
+❓ Which service helps transfer petabytes of on-prem data to AWS?
+
+A. AWS DataSync  
+B. AWS Transfer Family  
+C. AWS Snowball  
+D. S3 Transfer Acceleration  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: C. AWS Snowball  
+🚚 Physical device used for bulk migration.
+</details>
+
+---
+
+### 🧨 Security — Gotchas & Multi-Choice
+
+❓ Can IAM policies grant access across accounts?
+<details>
+<summary>Show Answer</summary>
+🔐 Not directly—you must use resource-based policies or assume roles.
+</details>
+
+❓ What happens if a root user access key is left active?
+<details>
+<summary>Show Answer</summary>
+⚠️ It poses major security risk—root keys should never be used or kept active.
+</details>
+
+❓ Does CloudTrail log every activity across services by default?
+<details>
+<summary>Show Answer</summary>
+🚫 Only management events are enabled by default—data events (e.g., S3 object access) must be explicitly added.
+</details>
+
+❓ Can SCPs deny actions even if IAM allows them?
+<details>
+<summary>Show Answer</summary>
+✅ Yes. SCPs apply organization-wide and take precedence.
+</details>
+
+---
+
+### 📚 Security — Multi-Choice Questions
+
+❓ Which service enables centralized identity management across accounts?
+
+A. AWS IAM  
+B. AWS Organizations  
+C. IAM Identity Center  
+D. AWS SSO  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: C. IAM Identity Center  
+💡 Formerly known as AWS SSO.
+</details>
+
+❓ Which service allows automatic secret rotation?
+
+A. Parameter Store  
+B. Secrets Manager  
+C. AWS KMS  
+D. Cognito  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: B. Secrets Manager  
+🔐 Secure storage with rotation built-in.
+</details>
+
+❓ Which AWS service records all API activity for audit purposes?
+
+A. AWS Config  
+B. CloudWatch Logs  
+C. CloudTrail  
+D. GuardDuty  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: C. CloudTrail  
+📜 Tracks who did what, where, and when.
+</details>
+
+---
+
+### 🧨 Databases — Gotchas & Multi-Choice
+
+❓ Can Aurora scale read replicas across multiple regions?
+<details>
+<summary>Show Answer</summary>
+🌍 Yes. Aurora Global Databases support cross-region replicas.
+</details>
+
+❓ Is DynamoDB eventually consistent by default?
+<details>
+<summary>Show Answer</summary>
+🌀 Yes. Read-after-write consistency may not be guaranteed unless specifically requested.
+</details>
+
+❓ Can you pause an RDS instance to save costs?
+<details>
+<summary>Show Answer</summary>
+⏸️ Only supported for RDS on-demand in development/test environments (not production or multi-AZ).
+</details>
+
+❓ How does DMS behave with schema differences between source and target?
+<details>
+<summary>Show Answer</summary>
+⚠️ You must configure schema transformation or ensure structural compatibility manually.
+</details>
+
+❓ What happens if you delete a DynamoDB table with Point-in-Time Recovery enabled?
+<details>
+<summary>Show Answer</summary>
+🛡️ Recovery is possible for up to 35 days, unless explicitly disabled before deletion.
+</details>
+
+---
+
+### 📚 Databases — Multi-Choice Questions
+
+❓ Which service provides highly scalable, low-latency NoSQL performance?
+
+A. Amazon RDS  
+B. Amazon Aurora  
+C. DynamoDB  
+D. Amazon DocumentDB  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: C. DynamoDB  
+⚡ Built for millisecond responses at scale.
+</details>
+
+❓ You need to query structured data directly from S3—what should you use?
+
+A. Amazon Redshift  
+B. Amazon Athena  
+C. Amazon EMR  
+D. AWS Glue  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: B. Amazon Athena  
+💡 It’s serverless SQL querying over S3.
+</details>
+
+❓ Which service enables in-memory caching for databases?
+
+A. ElastiCache  
+B. DynamoDB Accelerator (DAX)  
+C. Amazon RDS Proxy  
+D. Both A & B  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: D. Both A & B  
+🔥 ElastiCache for Redis/Memcached, DAX for DynamoDB.
+</details>
+
+---
+
+### 🧨 Messaging — Gotchas & Multi-Choice
+
+❓ Does SQS preserve order of messages?
+<details>
+<summary>Show Answer</summary>
+🔁 Only with FIFO queues. Standard queues do not guarantee order.
+</details>
+
+❓ What happens if an SNS subscriber endpoint is down?
+<details>
+<summary>Show Answer</summary>
+🛑 Messages may be lost unless delivery retries or dead-letter queues are configured.
+</details>
+
+❓ Can EventBridge connect to SaaS apps like Zendesk or PagerDuty?
+<details>
+<summary>Show Answer</summary>
+✅ Yes. It supports partner integrations and custom event buses.
+</details>
+
+❓ Is there a message size limit in SQS?
+<details>
+<summary>Show Answer</summary>
+📦 Yes—message bodies are capped at 256 KB.
+</details>
+
+❓ Do Step Functions retry failed Lambda invocations by default?
+<details>
+<summary>Show Answer</summary>
+🔄 Yes. You can configure retry logic, backoff, and fallbacks.
+</details>
+
+---
+
+### 📚 Messaging — Multi-Choice Questions
+
+❓ What’s the best way to decouple microservices?
+
+A. API Gateway  
+B. Step Functions  
+C. Amazon SQS  
+D. VPC Peering  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: C. Amazon SQS  
+📮 Enables async communication between components.
+</details>
+
+❓ Which AWS service is pub-sub and pushes messages to multiple targets?
+
+A. SQS  
+B. SNS  
+C. Step Functions  
+D. EventBridge  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: B. SNS  
+📢 Fan-out to emails, Lambda, SQS, and more.
+</details>
+
+❓ You need to connect multiple third-party apps through AWS and route by event type. What do you use?
+
+A. Amazon MQ  
+B. SNS  
+C. EventBridge  
+D. Kinesis  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: C. EventBridge  
+🔗 It's the backbone for event-based integrations.
+</details>
+
+❓ How can you automate retries and handle workflow failure across multiple services?
+
+A. Lambda  
+B. Step Functions  
+C. CloudWatch Events  
+D. SNS  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: B. Step Functions  
+🛠️ Coordinates retries, error handling, and step transitions.
+</details>
+
+---
+
+### 🧨 Monitoring, Deployment & Optimization — Gotchas & Multi-Choice
+
+❓ Does CloudWatch automatically collect custom app logs?
+<details>
+<summary>Show Answer</summary>
+🚫 No. You must install agents or configure logging manually.
+</details>
+
+❓ What happens if CloudTrail is disabled in one region?
+<details>
+<summary>Show Answer</summary>
+🌍 API activity in that region won’t be captured—Trail must be enabled globally or regionally.
+</details>
+
+❓ Can CloudFormation delete a stack with dependent resources still in use?
+<details>
+<summary>Show Answer</summary>
+⛔ No. You’ll get a dependency failure unless you define deletion policies or detach resources first.
+</details>
+
+❓ What happens if you update a Launch Template but forget to update the ASG?
+<details>
+<summary>Show Answer</summary>
+⚠️ ASG continues using the old template version—must explicitly update ASG config.
+</details>
+
+❓ Does Compute Optimizer recommend changes for non-EC2 resources?
+<details>
+<summary>Show Answer</summary>
+✅ Yes. It covers Lambda, ECS services, EBS volumes, and more.
+</details>
+
+---
+
+### 📚 Monitoring & Deployment — Multi-Choice Questions
+
+❓ What’s the best service to visualize cost trends over time?
+
+A. AWS Budgets  
+B. AWS Cost Explorer  
+C. Trusted Advisor  
+D. CloudWatch  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: B. AWS Cost Explorer  
+📈 Tracks usage and forecasts spending.
+</details>
+
+❓ Which service helps audit resource configuration changes?
+
+A. CloudTrail  
+B. CloudWatch  
+C. AWS Config  
+D. GuardDuty  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: C. AWS Config  
+🔍 Monitors drift and tracks config history.
+</details>
+
+❓ How do you enforce rollback in a deployment if health checks fail?
+
+A. CodeBuild  
+B. CodePipeline  
+C. CodeDeploy  
+D. CloudFormation  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: C. CodeDeploy  
+🛡️ Automates rollback based on health metrics.
+</details>
+
+❓ Which AWS service coordinates deployment stages (build, test, deploy) using Git triggers?
+
+A. CodeCommit  
+B. CodePipeline  
+C. CodeDeploy  
+D. CloudFormation  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: B. CodePipeline  
+🚀 Orchestrates CI/CD workflows across services.
+</details>
+
+❓ Which monitoring service captures high-resolution metrics and generates alarms?
+
+A. CloudWatch  
+B. CloudTrail  
+C. Config  
+D. Inspector  
+
+<details>
+<summary>Answer</summary>
+✅ **Correct**: A. CloudWatch  
+🧭 It’s the go-to for metrics, dashboards, and alerts.
+</details>
