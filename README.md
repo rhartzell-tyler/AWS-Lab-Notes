@@ -174,7 +174,7 @@
   4. Which database scales automatically and doesn’t require capacity provisioning?  
      ➕ Answer: DynamoDB with On-Demand mode
 
-  🔗 [AWS Sample Questions Bank](https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS_certified_solutions_architect_associate_sample_questions.pdf)
+  🔗 [AWS Sample Questions Bank](./ConceptCheck.md)
 
 </details>
 
