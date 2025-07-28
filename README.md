@@ -59,7 +59,7 @@
   - **Data Transfer Acceleration & Multipart Uploads**  
   - **Encryption Options**: SSE-S3, SSE-KMS, Client-side
 
-  🔗 [AWS Storage Documentation](https://docs.aws.amazon.com/storage/)  
+  🔗 [AWS Storage Documentation](https://docs.aws.amazon.com/pdfs/whitepapers/latest/aws-storage-services-overview/aws-storage-services-overview.pdf)  
   🔗 [EBS vs EFS Explained](https://docs.aws.amazon.com/whitepapers/latest/aws-storage-options/aws-storage-options.pdf)
 
   **❓ Sample Question:**  
