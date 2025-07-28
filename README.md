@@ -12,7 +12,7 @@
   | Lambda        | Stateless / event-driven workloads     | Cheapest for bursts  | Auto by invocation     |
   | ECS / Fargate | Containers w/ orchestration            | Serverless option    | Cluster / task-based   |
 
-  🔗 [Serverless Scenarios](./EC2NetworkingAndPerfirmanceScenarios.md)
+  🔗 [Serverless Scenarios](./EC2%20Networking%20and%20Perfirmance%20Scenarios.md)
 
   **❓ Sample Question:**  
   _Which compute service offers full control over OS and networking while supporting horizontal scaling?_  
