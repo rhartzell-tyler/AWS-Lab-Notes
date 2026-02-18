@@ -4,7 +4,7 @@
 Athena = a **serverless SQL query engine** that runs Presto/Trino queries directly against data stored in **S3**, using the **Glue Data Catalog** for schema metadata.
 
 ---
-![Athena Architecture]("Amazon Athena Architecture.jpg")
+![Athena Architecture](Amazon%20Athena%20Architecture.jpg)
 ---
 
 ## Exam‑Critical Quirks
