@@ -4,7 +4,7 @@
 Glue = a **serverless ETL service** built on managed Spark, plus a **central Data Catalog** used by Athena, EMR, and Redshift Spectrum.
 
 ---
-![Glue Architecture](AWS Glue Data Format Conversin Architecture.jpg)
+![Glue Architecture](AWS%20Glue%20Data%20Format%20Conversin%20Architecture.jpg)
 ---
 
 ## Exam‑Critical Quirks
