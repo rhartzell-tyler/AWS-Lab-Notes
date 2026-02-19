@@ -15,7 +15,7 @@
 - FSx: FSx for Windows, FSx for Lustre, FSx for NetApp ONTAP, FSx for OpenZFS.
 - Storage Gateway: File Gateway, Volume Gateway, Tape Gateway (hybrid storage).
 
-### 3. [Databases & Caching](03-DatabaseAndCaching/DatabaseAndCaching-Index.md)
+### 3. [Databases & Caching](03-DatabaseAndCaching/DatabaseAndCaching-index.md)
 - RDS: MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, Aurora.
 - Aurora: MySQL/PostgreSQL‑compatible, serverless, global database.
 - DynamoDB: NoSQL key‑value, GSIs/LSIs, DAX, Streams, TTL, global tables.
