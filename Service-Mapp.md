@@ -1,4 +1,4 @@
-### [1. Compute](01-Compute/Compute-Index.md)
+### 1. [Compute](01-Compute/Compute-Index.md)
 - EC2: Instances, AMIs, instance store, user data, placement groups, hibernation.
 - Auto Scaling: ASGs, scaling policies, lifecycle hooks.
 - Elastic Load Balancing: ALB, NLB, GLB (Gateway Load Balancer).
@@ -7,7 +7,7 @@
 - Elastic IPs: Static public IPv4 for EC2.
 - ENI (Elastic Network Interface): Virtual NICs attached to EC2 (networking‑heavy, but conceptually tied to EC2).
 
-### 2. Storage
+### 2. [Storage](02-Storage/Storage-Index.md)
 - S3: Buckets, storage classes, versioning, lifecycle, replication, access points.
 - S3 Glacier / Glacier Deep Archive: Archival storage.
 - EBS: Volumes, snapshots, volume types (gp3, io2, st1, sc1).
@@ -15,7 +15,7 @@
 - FSx: FSx for Windows, FSx for Lustre, FSx for NetApp ONTAP, FSx for OpenZFS.
 - Storage Gateway: File Gateway, Volume Gateway, Tape Gateway (hybrid storage).
 
-### 3. Databases & Caching
+### 3. [Databases & Caching](03-DatabaseAndCaching/DatabaseAndCaching-Index.md)
 - RDS: MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, Aurora.
 - Aurora: MySQL/PostgreSQL‑compatible, serverless, global database.
 - DynamoDB: NoSQL key‑value, GSIs/LSIs, DAX, Streams, TTL, global tables.
@@ -27,7 +27,7 @@
 - Keyspaces: Managed Apache Cassandra.
 - OpenSearch Service: Search + log analytics (you’ve already got a mental model page for this).
 
-### 4. Networking & Connectivity
+### 4. [Networking & Connectivity](04-NetworkingAndConnectivity/NetworkingAndConnectivity-Index.md)
 - VPC: CIDR blocks, subnets, route tables, NACLs, security groups.
 - ENI: Network interfaces for EC2 (lives here conceptually too).
 - Internet Gateway (IGW): Internet access for public subnets.
@@ -41,7 +41,7 @@
 - Global Accelerator: Anycast IPs, TCP/UDP acceleration.
 - API Gateway (network edge for APIs): Also fits in Serverless / Integration, but network‑fronting.
 
-### 5. Security, Identity, Compliance
+### 5. [Security, Identity, Compliance](05-SecurityIdentityCompliance/SecurityIdentityCompliance-Index.md)
 - IAM: Users, roles, policies, groups.
 - Organizations: Multi‑account management, SCPs.
 - Cognito: User pools, identity pools, federation.
@@ -57,7 +57,7 @@
 - Security Hub: Centralized security findings.
 - Artifact: Compliance reports.
 
-### 6. Monitoring & Governance
+### 6. [Monitoring & Governance](06-MonitoringAndGovernance/MonitoringAndGovernance-Index.md)
 - CloudWatch: Metrics, logs, alarms, dashboards, Logs Insights.
 - CloudTrail: API auditing, event history, org trails.
 - Config: Resource configuration history, rules, conformance packs.
@@ -67,7 +67,7 @@
 - License Manager: License tracking.
 - Budgets / Cost Explorer / CUR: Cost visibility and control.
 
-### 7. Analytics & Big Data
+### 7. [Analytics & Big Data](07-AnalyticsAndBigData/AnalyticsAndBigData-Index.md)
 - Athena: Serverless SQL over S3.
 - Glue: ETL, Data Catalog, crawlers, Glue Studio.
 - Redshift: (also in Databases, but here as warehouse/analytics).
@@ -77,7 +77,7 @@
 - QuickSight: BI dashboards.
 - Data Pipeline / Step Functions (for workflows): Sometimes appears in analytics pipelines.
 
-### 8. Application Integration & Messaging
+### 8. [Application Integration & Messaging](08-ApplicationIntegrationAndMessaging/ApplicationIntegrationAndMessaging-Index.md)
 - SQS: Standard and FIFO queues.
 - SNS: Pub/sub, fan‑out, SMS/email/mobile.
 - EventBridge: Event bus, SaaS/event routing.
@@ -85,7 +85,7 @@
 - API Gateway: REST, HTTP, WebSocket APIs.
 - AppConfig: Feature flags/config rollout (often grouped with Systems Manager).
 
-### 9. Migration & Transfer
+### 9. [Migration & Transfer](09-MigrationAndTransfer/MigrationAndTransfer-Index.md)
 - DMS: Database Migration Service.
 - SMS / Application Migration Service: Server migration.
 - DataSync: Data transfer to/from on‑prem.
@@ -93,7 +93,7 @@
 - Transfer Family: SFTP/FTPS/FTP into S3.
 - Migration Hub: Central tracking for migrations.
 
-### 10. Containers & Serverless
+### 10. [Containers & Serverless](10-ContainersAndServerless/ContainersAndServerless-Index.md)
 - ECS: Container orchestration (EC2/Fargate).
 - EKS: Managed Kubernetes.
 - Fargate: Serverless compute for ECS/EKS.
@@ -102,7 +102,7 @@
 - ECR: Container registry.
 - Serverless Application Model (SAM) / CDK: IaC for serverless and beyond.
 
-### 11. Edge, Content Delivery, End‑User / Hybrid
+### 11. [Edge, Content Delivery, End‑User / Hybrid](11-EdgeContentDeliveryEndUserHybrid/EdgeContentDeliveryEndUserHybrid-Index.md)
 - CloudFront: CDN, signed URLs/cookies, origin access control.
 - Global Accelerator: (also in Networking, but edge‑focused).
 - Outposts: AWS on‑prem racks.
