@@ -1,5 +1,9 @@
 # AWS Analytics & Big Data — Mental Model Map (SAA‑C03)
 
+---
+Here is a link to an extra mental map for Machine Learning:[Machine Learning Model](07-AnalyticsAndBigData/MachineLearningModel.md)
+---
+
 ## 1. What This Category Actually Solves
 Analytics & Big Data answers five architectural questions:
 
