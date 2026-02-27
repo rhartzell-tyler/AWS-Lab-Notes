@@ -1,181 +1,113 @@
-## 🧠 AWS SAA-C03 Interactive Mind Map
+### 1. [Compute](01-Compute/Compute-Index.md)
+- EC2: Instances, AMIs, instance store, user data, placement groups, hibernation.
+- Auto Scaling: ASGs, scaling policies, lifecycle hooks.
+- Elastic Load Balancing: ALB, NLB, GLB (Gateway Load Balancer).
+- Elastic Beanstalk: PaaS wrapper over EC2, ALB, ASG, RDS.
+- Lightsail: Simplified VPS (rare on exam, but occasionally appears).
+- Elastic IPs: Static public IPv4 for EC2.
+- ENI (Elastic Network Interface): Virtual NICs attached to EC2 (networking‑heavy, but conceptually tied to EC2).
 
----
+### 2. [Storage](02-Storage/Storage-Index.md)
+- S3: Buckets, storage classes, versioning, lifecycle, replication, access points.
+- S3 Glacier / Glacier Deep Archive: Archival storage.
+- EBS: Volumes, snapshots, volume types (gp3, io2, st1, sc1).
+- EFS: Managed NFS for Linux.
+- FSx: FSx for Windows, FSx for Lustre, FSx for NetApp ONTAP, FSx for OpenZFS.
+- Storage Gateway: File Gateway, Volume Gateway, Tape Gateway (hybrid storage).
 
-### 📦 Compute
-<details>
-  <summary>🚀 EC2 vs Lambda vs ECS vs Fargate</summary>
+### 3. [Databases & Caching](03-DatabaseAndCaching/DatabaseAndCaching-index.md)
+- RDS: MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, Aurora.
+- Aurora: MySQL/PostgreSQL‑compatible, serverless, global database.
+- DynamoDB: NoSQL key‑value, GSIs/LSIs, DAX, Streams, TTL, global tables.
+- DAX (DynamoDB Accelerator): In‑memory cache for DynamoDB.
+- ElastiCache: Redis, Memcached.
+- Redshift: Data warehouse, RA3, Redshift Spectrum, concurrency scaling.
+- DocumentDB: MongoDB‑compatible document DB.
+- Neptune: Graph database.
+- Keyspaces: Managed Apache Cassandra.
+- OpenSearch Service: Search + log analytics (you’ve already got a mental model page for this).
 
-  | Service       | Use Case                              | Cost                 | Scaling               |
-  |---------------|----------------------------------------|----------------------|------------------------|
-  | EC2           | Full control / legacy apps             | On-demand / spot     | Manual / ASG           |
-  | Lambda        | Stateless / event-driven workloads     | Cheapest for bursts  | Auto by invocation     |
-  | ECS / Fargate | Containers w/ orchestration            | Serverless option    | Cluster / task-based   |
+### 4. [Networking & Connectivity](04-NetworkingAndConnectivity/NetworkingAndConnectivity-Index.md)
+- VPC: CIDR blocks, subnets, route tables, NACLs, security groups.
+- ENI: Network interfaces for EC2 (lives here conceptually too).
+- Internet Gateway (IGW): Internet access for public subnets.
+- NAT Gateway / NAT Instance: Outbound internet for private subnets.
+- VPC Peering: One‑to‑one VPC connectivity (no transitive routing).
+- Transit Gateway: Hub‑and‑spoke multi‑VPC and on‑prem connectivity.
+- VPN: Site‑to‑Site VPN, Client VPN.
+- Direct Connect: Dedicated private link to AWS.
+- PrivateLink / VPC Endpoints: Interface and Gateway endpoints for private service access.
+- Route 53: DNS, health checks, routing policies.
+- Global Accelerator: Anycast IPs, TCP/UDP acceleration.
+- API Gateway (network edge for APIs): Also fits in Serverless / Integration, but network‑fronting.
 
-  🔗 [Serverless Scenarios](./EC2%20Networking%20and%20Perfirmance%20Scenarios.md)
+### 5. [Security, Identity, Compliance](05-SecurityIdentityCompliance/SecurityIdentityCompliance-Index.md)
+- IAM: Users, roles, policies, groups.
+- Organizations: Multi‑account management, SCPs.
+- Cognito: User pools, identity pools, federation.
+- KMS: CMKs, envelope encryption, key policies.
+- CloudHSM: Dedicated HSM cluster.
+- Secrets Manager: Rotating secrets.
+- SSM Parameter Store: Config/secret storage (standard vs advanced).
+- Shield: DDoS protection (Standard, Advanced).
+- WAF: Web application firewall (ALB, API Gateway, CloudFront).
+- Macie: S3 data classification.
+- GuardDuty: Threat detection.
+- Inspector: Vulnerability scanning.
+- Security Hub: Centralized security findings.
+- Artifact: Compliance reports.
 
-  **❓ Sample Question:**  
-  _Which compute service offers full control over OS and networking while supporting horizontal scaling?_  
-  ➕ Answer: EC2
+### 6. [Monitoring & Governance](06-MonitoringAndGovernance/MonitoringAndGovernance-Index.md)
+- CloudWatch: Metrics, logs, alarms, dashboards, Logs Insights.
+- CloudTrail: API auditing, event history, org trails.
+- Config: Resource configuration history, rules, conformance packs.
+- Trusted Advisor: Best‑practice checks (cost, security, performance).
+- Control Tower: Landing zone, guardrails.
+- Service Catalog: Approved products/portfolios.
+- License Manager: License tracking.
+- Budgets / Cost Explorer / CUR: Cost visibility and control.
 
-</details>
+### 7. [Analytics & Big Data](07-AnalyticsAndBigData/AnalyticsAndBigData-Index.md)
+- Athena: Serverless SQL over S3.
+- Glue: ETL, Data Catalog, crawlers, Glue Studio.
+- Redshift: (also in Databases, but here as warehouse/analytics).
+- EMR: Managed Hadoop/Spark.
+- Kinesis: Data Streams, Data Firehose, Data Analytics, Video Streams.
+- OpenSearch Service: Log analytics, search dashboards.
+- QuickSight: BI dashboards.
+- Data Pipeline / Step Functions (for workflows): Sometimes appears in analytics pipelines.
 
----
+### 8. [Application Integration & Messaging](08-ApplicationIntegrationAndMessaging/ApplicationIntegrationAndMessaging-Index.md)
+- SQS: Standard and FIFO queues.
+- SNS: Pub/sub, fan‑out, SMS/email/mobile.
+- EventBridge: Event bus, SaaS/event routing.
+- Step Functions: Orchestration, state machines.
+- API Gateway: REST, HTTP, WebSocket APIs.
+- AppConfig: Feature flags/config rollout (often grouped with Systems Manager).
 
-### 🌐 Networking
-<details>
-  <summary>🌍 VPC, Subnets, Routing, Gateways</summary>
+### 9. [Migration & Transfer](09-MigrationAndTransfer/MigrationAndTransfer-Index.md)
+- DMS: Database Migration Service.
+- SMS / Application Migration Service: Server migration.
+- DataSync: Data transfer to/from on‑prem.
+- Snow Family: Snowcone, Snowball, Snowmobile.
+- Transfer Family: SFTP/FTPS/FTP into S3.
+- Migration Hub: Central tracking for migrations.
 
-  - **VPC**: Foundation for AWS networking  
-  - **Subnets**: Public vs private isolation  
-  - **Route Tables**: Custom paths for traffic  
-  - **Security Groups**: Stateful instance firewall  
-  - **NACLs**: Stateless subnet firewall  
-  - **NAT Gateway**: Outbound access for private subnets  
-  - **Transit Gateway**: Hub for multi-VPC communication  
-  - **Gateway Endpoints**: Private access to AWS services
+### 10. [Containers & Serverless](10-ContainersAndServerless/ContainersAndServerless-Index.md)
+- ECS: Container orchestration (EC2/Fargate).
+- EKS: Managed Kubernetes.
+- Fargate: Serverless compute for ECS/EKS.
+- App Runner: Simplified container/app deployment.
+- Lambda: Serverless functions.
+- ECR: Container registry.
+- Serverless Application Model (SAM) / CDK: IaC for serverless and beyond.
 
-  🔗 [Subnet CIDR Lab](./EC2SubnetCIDRLab.md)  
-  🔗 [Gateway Endpoint to S3 Lab](./PrivateSubnetWithGatewayEndpointToS3.md)  
-  🔗 [EC2 Networking Scenarios](./EC2%20Networking%20and%20Perfirmance%20Scenarios.md)
+### 11. [Edge, Content Delivery, End‑User / Hybrid](11-EdgeContentDeliveryEndUserHybrid/EdgeContentDeliveryEndUserHybrid-Index.md)
+- CloudFront: CDN, signed URLs/cookies, origin access control.
+- Global Accelerator: (also in Networking, but edge‑focused).
+- Outposts: AWS on‑prem racks.
+- Local Zones / Wavelength: Low‑latency edge compute.
+- WorkSpaces / AppStream 2.0: End‑user computing.
+- Storage Gateway: (also in Storage, but hybrid bridge).
+- Direct Connect: (also in Networking, but hybrid connectivity).
 
-  **❓ Sample Question:**  
-  _Which networking component enables private subnet traffic to access S3 without using NAT or Internet Gateway?_  
-  ➕ Answer: Gateway Endpoint
-
-</details>
-
----
-
-### 🗄️ Storage
-<details>
-  <summary>📁 Object, Block, and File Storage</summary>
-
-  - **S3**: Object store, lifecycle rules, versioning  
-  - **S3 Classes**: Std, IA, Intelligent Tiering, Glacier  
-  - **EBS**: EC2-attached block volume  
-  - **EFS**: Shared NFS file storage  
-  - **FSx**: Managed Windows/Linux FS solutions  
-  - **Data Transfer Acceleration & Multipart Uploads**  
-  - **Encryption Options**: SSE-S3, SSE-KMS, Client-side
-
-  🔗 [AWS Storage Documentation](https://docs.aws.amazon.com/pdfs/whitepapers/latest/aws-storage-services-overview/aws-storage-services-overview.pdf)  
-  🔗 [EBS vs EFS Explained](https://docs.aws.amazon.com/whitepapers/latest/aws-storage-options/aws-storage-options.pdf)
-
-  **❓ Sample Question:**  
-  _You need shared storage between multiple EC2 instances with automatic scalability—what do you use?_  
-  ➕ Answer: Amazon EFS
-
-</details>
-
----
-
-### 🗃️ Databases
-<details>
-  <summary>🧬 Relational & Non-Relational Choices</summary>
-
-  - **RDS**: Managed SQL (PostgreSQL, MySQL, Oracle, etc.)  
-  - **Aurora**: RDS-compatible, higher performance  
-  - **DynamoDB**: Serverless NoSQL, single-digit ms latency  
-  - **ElastiCache**: Redis/Memcached for caching  
-  - **Redshift**: Data warehouse analytics  
-  - **DocumentDB**: MongoDB-compatible
-
-  🔗 [AWS Database Decision Guide](https://aws.amazon.com/rds/)  
-  🔗 [RDS vs Aurora Deep Dive](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html)
-
-  **❓ Sample Question:**  
-  _What database offers automatic scaling, performance benefits, and PostgreSQL compatibility?_  
-  ➕ Answer: Amazon Aurora
-
-</details>
-
----
-
-### 🔐 Security & IAM
-<details>
-  <summary>🔐 IAM, Policies, and Responsibility Model</summary>
-
-  - **IAM Users/Roles/Groups**: Access management  
-  - **Policies**: JSON-based permissions  
-  - **MFA**: Multi-Factor Authentication  
-  - **Access Analyzer**: Detect unintended access  
-  - **Key Management**: KMS, envelope encryption  
-  - **Shared Responsibility Model**
-
-  🔗 [Security Fundamentals Course](https://skillbuilder.aws/learn/S2N5PM41ZK/aws-security-fundamentals-second-edition/E71QQGTCRZ)  
-  🔗 [IAM Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
-
-  **❓ Sample Question:**  
-  _Which IAM entity allows temporary access delegation between accounts?_  
-  ➕ Answer: IAM Role with trust policy
-
-</details>
-
----
-
-### 🔄 Integration & Messaging
-<details>
-  <summary>📨 Decoupling via Messaging Services</summary>
-
-  - **SQS**: Decoupled message queue (poll-based)  
-  - **SNS**: Pub/sub messaging to multiple subscribers  
-  - **EventBridge**: Event-driven application integration  
-  - **Step Functions**: Workflow orchestration  
-  - **Kinesis**: Stream-based analytics and ingestion
-
-  🔗 [Messaging Patterns Cheat Sheet](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/aws-overview.pdf)  
-  🔗 [Step Functions vs Lambda](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html)
-
-  **❓ Sample Question:**  
-  _Which service should you use for loosely coupled components where messages must be processed in order?_  
-  ➕ Answer: SQS FIFO Queue
-
-</details>
-
----
-
-### 📊 Monitoring & Cost Optimization
-<details>
-  <summary>📈 Visibility, Alerts, and Spend Control</summary>
-
-  - **CloudWatch**: Metrics, logs, custom dashboards  
-  - **CloudTrail**: API call logging for audit  
-  - **Trusted Advisor**: Cost optimization, security checks  
-  - **Cost Explorer**: Forecast spend and analyze usage  
-  - **Billing Alarms**: Trigger alerts on cost thresholds  
-  - **Compute Optimizer**: Resource right-sizing suggestions
-
-  🔗 [Monitoring Deep Dive](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)  
-  🔗 [AWS Pricing Calculator](https://calculator.aws.amazon.com/)  
-  🔗 [Trusted Advisor Docs](https://docs.aws.amazon.com/awssupport/latest/user/trusted-advisor.html)
-
-  **❓ Sample Question:**  
-  _Which service can recommend downsizing EC2 instance types based on usage patterns?_  
-  ➕ Answer: AWS Compute Optimizer
-
-</details>
-
----
-
-### 📚 Practice Questions Module
-<details>
-  <summary>🧪 Self-Check: Sample Exam Scenarios</summary>
-
-  1. You need to decouple the front-end from back-end using polling. What service fits best?  
-     ➕ Answer: SQS
-
-  2. An application must react to object uploads in S3. What do you use?  
-     ➕ Answer: EventBridge or S3 Event Notifications
-
-  3. How do you ensure a Lambda function only runs in a private subnet without internet exposure?  
-     ➕ Answer: Attach it to a VPC + use NAT Gateway for outbound if needed
-
-  4. Which database scales automatically and doesn’t require capacity provisioning?  
-     ➕ Answer: DynamoDB with On-Demand mode
-
-  🔗 [AWS Sample Questions Bank](./ConceptCheck.md)
-
-</details>
-
----
