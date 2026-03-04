@@ -144,6 +144,8 @@ If the question says “private access without using the internet,” the answer
 - DX provides performance  
 - Called **“DX with VPN failover”**
 
+**DX is not highly available unless you deploy two DX connections, and VPN is the recommended backup path. Border Gateway Protocl (BGP) handles automatic failover between them (DX and VPN).**
+
 ---
 
 ## 8. Load Balancers and Traffic Flow

@@ -185,3 +185,80 @@ You need to memorize this list — because these are the details the exam actual
 
 You’re already building the mental‑model skeleton.
 This is the muscle you attach to it.
+
+
+AWS-Lab-Notes/
+│
+├── 01-Compute/
+│   ├── EC2.md
+│   ├── Lambda.md
+│   ├── ECS.md
+│   ├── EKS.md
+│   ├── LoadBalancers.md
+│   └── images/
+│
+├── 02-Storage/
+│   ├── S3.md
+│   ├── EBS.md
+│   ├── EFS.md
+│   ├── FSx.md
+│   └── images/
+│
+├── 03-Databases/
+│   ├── RDS.md
+│   ├── Aurora.md
+│   ├── DynamoDB.md
+│   ├── OpenSearch.md
+│   └── images/
+│
+├── 04-Networking/
+│   ├── VPC.md
+│   ├── Subnets.md
+│   ├── Route53.md
+│   ├── CloudFront.md
+│   └── images/
+│
+├── 05-Security/
+│   ├── IAM.md
+│   ├── KMS.md
+│   ├── SecretsManager.md
+│   ├── Cognito.md
+│   └── images/
+│
+├── 06-Serverless/
+│   ├── Lambda-DeepDive.md
+│   ├── API-Gateway.md
+│   ├── EventBridge.md
+│   └── images/
+│
+├── 07-Analytics/
+│   ├── Athena.md
+│   ├── Glue.md
+│   ├── QuickSight.md
+│   ├── EMR.md
+│   ├── Kinesis.md
+│   └── images/
+│
+├── 08-Containers/
+│   ├── ECS.md
+│   ├── EKS.md
+│   ├── Fargate.md
+│   └── images/
+│
+├── 09-Migration-and-Integration/
+│   ├── DMS.md
+│   ├── SMS.md
+│   ├── DataSync.md
+│   └── images/
+│
+├── 10-Monitoring-and-Governance/
+│   ├── CloudWatch.md
+│   ├── CloudTrail.md
+│   ├── Config.md
+│   ├── TrustedAdvisor.md
+│   └── images/
+│
+└── 11-Edge-and-Content-Delivery/
+    ├── CloudFront.md
+    ├── GlobalAccelerator.md
+    └── images/

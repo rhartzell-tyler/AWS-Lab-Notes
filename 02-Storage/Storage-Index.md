@@ -52,6 +52,10 @@ Exam traps:
 - Snapshots are **incremental**  
 - Restoring from snapshot creates a **new volume**  
 
+**BACKING UP EBS***
+- Data Lifecycle Manager = EBS/AMI snapshot automation. Think (EBS/AMI backups)
+- AWS Backup = enterprise backup orchestration.
+
 ---
 
 ### C. File Storage (Shared POSIX file systems)
