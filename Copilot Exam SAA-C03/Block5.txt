@@ -1,0 +1,108 @@
+Block 5 — Questions 59 to 65
+Question 59  
+A company runs a global application using Amazon CloudFront, an Application Load Balancer, and EC2 instances. The company wants to protect the application from Layer 7 attacks and block malicious IPs automatically. The solution must integrate with CloudFront and require minimal operational overhead. What should a solutions architect recommend?
+
+A. Use AWS Shield Advanced
+B. Use AWS WAF with managed rule groups
+C. Use security groups with IP deny lists
+D. Use NACLs with deny rules for malicious IPs
+
+Question 60  
+A company uses Amazon Aurora MySQL for its production database. The company wants to reduce costs while maintaining high availability. The workload is steady with predictable traffic. What should a solutions architect recommend?
+
+A. Convert to Aurora Serverless v2
+B. Use Aurora I/O-Optimized
+C. Use smaller instance classes with Aurora Multi-AZ
+D. Use Aurora Global Database
+
+Question 61  
+A company runs a serverless application using API Gateway, Lambda, and DynamoDB. The company wants to ensure that Lambda functions can access DynamoDB with the least privilege possible. The solution must scale automatically and avoid managing credentials. What should a solutions architect recommend?
+
+A. Store credentials in Secrets Manager and rotate them automatically
+B. Use IAM roles with fine-grained DynamoDB permissions
+C. Use resource-based policies on DynamoDB tables
+D. Use Lambda environment variables to store access keys
+
+Question 62  
+A company needs to ingest large files (up to 50 GB) from external partners. The partners must upload files securely without gaining access to other objects in the bucket. The company wants to minimize operational overhead. What should a solutions architect recommend?
+
+A. Provide pre-signed S3 URLs
+B. Use S3 Access Points
+C. Use AWS Transfer Family
+D. Use an API Gateway endpoint backed by Lambda
+
+❌ Question 62 — Correct: A
+Your answer: B
+
+Why A is correct
+For external partners uploading large files (up to 50 GB):
+Pre-signed S3 URLs
+No credentials needed
+Least operational overhead
+Partners can upload directly
+Automatically scoped to a single object
+No access to the rest of the bucket
+This is the exam’s preferred pattern.
+
+Why B is wrong
+S3 Access Points are great for internal multi-tenant access, but:
+They do not isolate uploads per object
+They require IAM policies
+They are not the simplest solution for external partners
+The exam always chooses pre-signed URLs for external uploads unless there’s a compliance or protocol requirement (SFTP, FTPS).
+
+Question 63  
+A company runs a data processing pipeline using Amazon SQS and Lambda. Occasionally, Lambda concurrency is exhausted, causing delays. The company wants to ensure that messages are processed reliably even during traffic spikes. What should a solutions architect recommend?
+
+A. Increase Lambda reserved concurrency
+B. Use SQS FIFO queues
+C. Use SQS → Lambda → SQS dead-letter queue
+D. Use SQS → Lambda → Kinesis Data Streams
+
+❌ Question 63 — Correct: A
+Your answer: B
+
+Why A is correct
+When Lambda concurrency is exhausted:
+Increase Lambda reserved concurrency
+Guarantees capacity
+Prevents throttling
+Ensures SQS messages continue flowing
+This is the exam’s go-to fix.
+
+Why B is wrong
+FIFO queues do not solve concurrency exhaustion.
+They actually reduce throughput because:
+FIFO = ordered
+FIFO = limited parallelism
+FIFO = slower
+This is a classic AWS trap.
+
+Question 64  
+A company wants to migrate a legacy application to AWS. The application requires a shared file system that supports SMB and integrates with Active Directory. The company wants a fully managed solution. What should a solutions architect recommend?
+
+A. Amazon EFS
+B. Amazon FSx for Windows File Server
+C. Amazon FSx for Lustre
+D. Amazon S3 with ACLs
+
+Question 65  
+A company wants to build a multi-Region disaster recovery strategy for an application that stores data in DynamoDB. The company wants to minimize RPO and RTO while supporting active-active writes. What should a solutions architect recommend?
+
+A. DynamoDB Streams with Lambda replication
+B. DynamoDB global tables
+C. DynamoDB on-demand mode
+D. DynamoDB TTL with cross-Region export
+
+⭐ Correct Answers for Block 5 (Questions 59–65)
+Q#	Correct	Your Answer	Result
+59	B	B	✅
+60	C	C	✅
+61	B	B	✅
+62	A	B	❌
+63	A	B	❌
+64	B	B	✅
+65	B	B	✅
+🎯 Block 5 Score: 5 / 7
+Very solid finish — and the two you missed are classic AWS traps.
+Let’s break them down.

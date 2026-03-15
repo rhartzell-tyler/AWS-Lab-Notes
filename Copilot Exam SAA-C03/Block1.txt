@@ -1,0 +1,182 @@
+Block 1 — Questions 1 to 14
+1:A 2:B,C 3:B 4:C 5:C 6:C 7:B 8:D 9:D 10:B 11:B 12:B 13:C
+
+Question 1  
+A company runs a multi-tier web application on AWS. The application layer runs on Amazon EC2 instances in an Auto Scaling group behind an Application Load Balancer (ALB). The database layer uses Amazon RDS for MySQL with Multi-AZ enabled. During a regional outage, the entire application becomes unavailable. The company wants to improve resiliency so that the application can withstand a full Region failure with minimal changes to the application code. Which solution meets these requirements with the least operational overhead?
+
+A. Create a cross-Region read replica for the RDS instance and promote it during a disaster. Use Amazon Route 53 failover routing between ALBs in two Regions.
+B. Enable Amazon RDS Multi-Region Multi-AZ and configure the Auto Scaling group to span two Regions.
+C. Use Amazon DynamoDB global tables instead of RDS and configure the ALB to route traffic to the nearest Region.
+D. Create an Amazon S3 static website copy in another Region and use Route 53 latency-based routing to direct users.
+
+Question 2  
+A financial services company must store trade records for 10 years to comply with regulations. Records are written frequently in the first 30 days and then rarely accessed, except for occasional audits. The company must minimize storage costs while ensuring data is highly durable and protected from accidental deletion. Which combination of actions should a solutions architect take? (Choose two.)
+
+A. Store the records in Amazon S3 Standard with versioning enabled.
+B. Use S3 Lifecycle policies to transition objects to S3 Glacier Deep Archive after 30 days.
+C. Enable S3 Object Lock in compliance mode on the bucket.
+D. Store the records in Amazon EFS with lifecycle management enabled.
+E. Use S3 Intelligent-Tiering for all records.
+
+Question 3  
+A company is building a new analytics platform. Raw data is ingested from multiple external partners via HTTPS and stored in Amazon S3. A nightly AWS Glue job transforms the data and loads it into Amazon Redshift for reporting. The security team requires that external partners must not be able to write directly to the company’s S3 buckets, and all data must be scanned for malware before being stored. What is the MOST appropriate architecture?
+
+A. Provide pre-signed S3 URLs to partners and run an AWS Lambda function triggered by S3 PUT events to scan objects.
+B. Expose an Amazon API Gateway endpoint backed by a Lambda function that validates and scans uploads before writing to S3.
+C. Configure an S3 bucket policy to allow only specific partner IP ranges and use S3 Access Points for isolation.
+D. Use AWS Transfer Family with SFTP and store files directly in S3, then scan them using Amazon Macie.
+
+Question 4  
+A company runs a RESTful API on Amazon ECS using Fargate. The API is fronted by an Application Load Balancer. During peak hours, users report increased latency and occasional 5xx errors. CloudWatch metrics show that CPU utilization on the tasks is around 40%, but the number of concurrent connections on the ALB is very high. The company wants to improve performance and scalability without changing application code. What should a solutions architect do?
+
+A. Increase the CPU and memory configuration of the Fargate tasks.
+B. Enable HTTP/2 on the ALB and configure connection keep-alive settings.
+C. Add an Amazon CloudFront distribution in front of the ALB and enable caching for API responses where possible.
+D. Replace the ALB with a Network Load Balancer to handle more concurrent connections.
+
+Question 5  
+A startup is designing a multi-tenant SaaS application on AWS. Each tenant’s data must be logically isolated, and some tenants require encryption keys that they control. The application uses Amazon RDS for PostgreSQL and Amazon S3 for object storage. Which approach best satisfies these requirements while minimizing operational complexity?
+
+A. Use a separate RDS instance per tenant and a separate S3 bucket per tenant with SSE-S3.
+B. Use a shared RDS database with a tenant_id column and a shared S3 bucket with object prefixes per tenant, using SSE-KMS with a single CMK.
+C. Use a shared RDS database with row-level security per tenant and S3 bucket prefixes per tenant, using SSE-KMS with per-tenant CMKs.
+D. Use Amazon DynamoDB with per-tenant tables and S3 buckets per tenant, using client-side encryption.
+
+Question 6  
+A company has a legacy reporting application that runs on a single Amazon EC2 instance and generates large PDF reports once per day. The reports are stored on the instance’s EBS volume and then emailed to users. The company wants to improve availability and durability of the reports while minimizing changes to the application. What is the BEST solution?
+
+A. Create an AMI of the instance and use Auto Scaling with a minimum size of 1 to replace failed instances.
+B. Mount an Amazon EFS file system to the instance and store the reports there.
+C. Configure a cron job to copy generated reports to an S3 bucket and serve them from S3.
+D. Use an EC2 instance store volume for faster I/O and back up the volume nightly.
+
+Question 7  
+A media company processes user-uploaded videos. Users upload files to an S3 bucket. When a file is uploaded, a Lambda function triggers a transcoding job on AWS Elemental MediaConvert. Recently, the company noticed that during traffic spikes, some videos are not transcoded, and there are no Lambda invocation errors. What is the MOST likely cause, and how should it be addressed?
+
+A. S3 event notifications are being throttled; increase the S3 bucket’s throughput.
+B. Lambda concurrency limits are reached; request a higher concurrency limit and use SQS between S3 and Lambda.
+C. MediaConvert has reached its job quota; request a service quota increase.
+D. The S3 bucket is versioned; only the latest version triggers events.
+
+Question 8  
+A company runs a high-traffic web application using Amazon API Gateway (REST API) and AWS Lambda. The application experiences sudden traffic spikes that cause throttling errors (429) from API Gateway. The company wants to handle these spikes gracefully without significantly overprovisioning limits. What should a solutions architect recommend?
+
+A. Increase the account-level API Gateway throttle limits to the maximum allowed.
+B. Configure usage plans and API keys to limit client traffic.
+C. Place an Amazon CloudFront distribution in front of API Gateway and enable caching for idempotent GET requests.
+D. Add an Amazon SQS queue between API Gateway and Lambda to buffer requests.
+
+Question 8 — Correct Answer: C
+Your answer: D
+
+Why C is correct
+Putting CloudFront in front of API Gateway is a real AWS exam pattern for handling sudden traffic spikes:
+
+CloudFront absorbs bursts
+
+CloudFront caches GET responses
+
+CloudFront reduces direct load on API Gateway
+
+CloudFront smooths out request rates
+
+This is exactly what AWS recommends for REST APIs experiencing throttling.
+
+Why D is wrong
+You cannot put SQS between API Gateway and Lambda for a synchronous REST API.
+API Gateway expects an immediate response — SQS breaks that contract.
+
+Question 9  
+A company is migrating an on-premises monolithic application to AWS. The application currently uses a shared file system for session data and user uploads. The company wants to move to a microservices architecture using Amazon ECS on Fargate and an Application Load Balancer. Session stickiness is not desired; any task should be able to serve any request. Which architecture best supports this requirement?
+
+A. Store session data and user uploads on an Amazon EFS file system mounted to all tasks.
+B. Store session data in Amazon ElastiCache for Redis and user uploads in Amazon S3.
+C. Use EBS volumes attached to each task and replicate data between them.
+D. Use DynamoDB for both session data and file storage.
+
+Question 9 — Correct Answer: B
+Your answer: D
+
+Why B is correct
+For microservices with stateless tasks:
+
+Session data → ElastiCache Redis (low latency, shared, scalable)
+
+User uploads → S3 (durable, scalable, shared)
+
+This is the standard AWS reference architecture.
+
+Why D is wrong
+DynamoDB is great, but:
+
+It’s not appropriate for file storage
+
+It’s not ideal for session storage requiring sub‑millisecond latency
+
+It’s not used for binary uploads
+
+Question 10  
+A healthcare company stores sensitive patient data in Amazon RDS for PostgreSQL. The security team requires that all database credentials be rotated automatically and that application code must not contain any hardcoded credentials. The application runs on Amazon EC2 instances in an Auto Scaling group. What is the MOST secure and operationally efficient solution?
+
+A. Store credentials in AWS Systems Manager Parameter Store (SecureString) and rotate them with a Lambda function.
+B. Use AWS Secrets Manager to store and automatically rotate RDS credentials; grant EC2 instances access via an IAM role.
+C. Encrypt credentials with KMS and store them in an S3 bucket with restricted access.
+D. Use IAM database authentication and store IAM user credentials on the EC2 instances.
+
+Question 11  
+A company runs a data ingestion pipeline where IoT devices send telemetry data every second. The data must be ingested, stored for 30 days for real-time dashboards, and then archived for 7 years for compliance. The solution must be cost-effective and support near real-time analytics. Which architecture best meets these requirements?
+
+A. Ingest data with Amazon Kinesis Data Streams, store in Amazon RDS, and archive to S3 Glacier Deep Archive.
+B. Ingest data with Amazon Kinesis Data Firehose to Amazon S3, query recent data with Amazon Athena, and use S3 Lifecycle policies to transition older data to S3 Glacier Deep Archive.
+C. Ingest data directly into DynamoDB, export to S3 after 30 days, and then to S3 Glacier Deep Archive.
+D. Ingest data with Amazon MSK, store in EFS, and archive to S3.
+
+Question 12  
+A company has a multi-account AWS environment managed with AWS Organizations. The security team wants to ensure that all S3 buckets in all accounts enforce encryption at rest using SSE-KMS with a specific central KMS key. The solution should minimize ongoing operational overhead. What should a solutions architect recommend?
+
+A. Use AWS Config rules in each account to detect unencrypted buckets and remediate them with Lambda.
+B. Use an SCP to deny S3 PutObject calls that do not include the required KMS key in the x-amz-server-side-encryption-aws-kms-key-id header.
+C. Enable default encryption on all S3 buckets using SSE-S3.
+D. Use IAM policies in each account to require SSE-KMS with the central key.
+
+Question 13  
+A company runs a latency-sensitive trading application on Amazon EC2 instances in a single Availability Zone. The application connects to an Amazon RDS for MySQL database in the same AZ. The company is concerned about AZ-level failures but also wants to minimize latency between the application and the database. Which solution provides the best balance between high availability and low latency?
+
+A. Enable Multi-AZ on the RDS instance and deploy EC2 instances across multiple AZs behind a Network Load Balancer.
+B. Enable Multi-AZ on the RDS instance and keep EC2 instances in a single AZ, using Auto Scaling within that AZ.
+C. Use Amazon Aurora MySQL with a reader in another AZ and direct all reads to the reader.
+D. Deploy separate RDS instances in each AZ and use application logic to choose the closest database.
+
+Question 13 — Correct Answer: B
+Your answer: C
+
+Why B is correct
+The company wants:
+
+Low latency (keep EC2 in one AZ)
+
+High availability (RDS Multi‑AZ)
+
+This is the exact AWS‑recommended pattern for latency‑sensitive workloads.
+
+Why C is wrong
+Aurora with a reader in another AZ helps with read scaling, not write availability.
+Also, the question is about latency between app and DB, not read scaling.
+
+
+🎉Correct Answers for Block 1 (13 Questions)
+Q#	Correct	Your Answer	Result
+1	A	A	✅
+2	B,C	B,C	✅
+3	B	B	✅
+4	C	C	✅
+5	C	C	✅
+6	C	C	✅
+7	B	B	✅
+8	C	D	❌
+9	B	D	❌
+10	B	B	✅
+11	B	B	✅
+12	B	B	✅
+13	B	C	❌
+🎉 Your Score: 10 / 13

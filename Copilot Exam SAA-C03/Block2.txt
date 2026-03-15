@@ -1,0 +1,290 @@
+Block 2 — Questions 14 to 28
+14:D 15:B 16:A 17:A 18:A 19:C 20:B 21:A 22:C 23:B 24:A 25:B 26:D 27:C 28:D
+
+Question 14  
+A company runs a global e-commerce platform using Amazon Aurora MySQL. During large promotional events, the read workload increases significantly, causing high read latency. The company wants to improve read scalability with minimal operational overhead and without modifying application code. What should a solutions architect recommend?
+
+A. Add Aurora Replicas in multiple AWS Regions and enable cross-Region read forwarding.
+B. Increase the instance size of the primary writer node.
+C. Add additional Aurora Replicas in the same Region and use the cluster endpoint.
+D. Convert the cluster to Aurora Serverless v2.
+
+❌ Question 14 — Correct: C
+Your answer: D
+
+Why C is correct
+When Aurora MySQL has read pressure:
+
+Adding Aurora Replicas in the same Region
+
+And using the cluster endpoint
+
+…automatically load-balances reads with zero application changes.
+
+Why D is wrong
+Aurora Serverless v2 is great, but:
+
+It does not solve read scaling as effectively as replicas
+
+It requires capacity autoscaling tuning
+
+It’s not the “minimal operational overhead” choice for read-heavy workloads
+
+Question 15  
+A company stores sensitive documents in an S3 bucket. The security team requires that documents be encrypted with customer-managed KMS keys and that only a specific application running on EC2 instances may decrypt them. The solution must prevent administrators from decrypting the data, even if they have S3 or KMS permissions. What should a solutions architect do?
+
+A. Enable S3 default encryption with SSE-KMS and restrict S3 access using bucket policies.
+B. Use KMS key policies that allow only the EC2 instance role to use the key and remove all IAM user permissions.
+C. Use S3 client-side encryption with keys stored in AWS Secrets Manager.
+D. Use S3 Object Lock in compliance mode.
+
+Question 16  
+A company is migrating a legacy application to AWS. The application requires a shared POSIX-compliant file system that supports thousands of concurrent connections and high throughput. The company wants a fully managed solution with minimal operational overhead. Which service should a solutions architect recommend?
+
+A. Amazon EFS
+B. Amazon FSx for Windows File Server
+C. Amazon FSx for Lustre
+D. Amazon S3 with Transfer Acceleration
+
+Question 17  
+A company uses Amazon RDS for PostgreSQL. The database receives heavy write traffic during business hours. The company wants to reduce write latency and improve throughput without changing the application code. What should a solutions architect recommend?
+
+A. Enable Multi-AZ and add read replicas.
+B. Convert the database to Amazon Aurora PostgreSQL.
+C. Increase the instance size and add more storage.
+D. Use Amazon ElastiCache for Redis as a write-through cache.
+
+❌ Question 17 — Correct: B
+Your answer: A
+
+Why B is correct
+When RDS PostgreSQL has heavy write traffic:
+
+Aurora PostgreSQL provides a distributed, log-structured storage layer
+
+Much higher write throughput
+
+Lower commit latency
+
+No application changes required
+
+This is a classic AWS exam pattern.
+
+Why A is wrong
+Multi-AZ + read replicas helps reads, not writes.
+
+Question 18  
+A company runs a serverless application using API Gateway, Lambda, and DynamoDB. The application occasionally experiences throttling on DynamoDB during traffic spikes. The company wants to eliminate throttling without significantly increasing cost. What should a solutions architect recommend?
+
+A. Enable DynamoDB Auto Scaling and set a higher maximum capacity.
+B. Convert the table to on-demand capacity mode.
+C. Add a write-through cache using ElastiCache for Redis.
+D. Increase the provisioned capacity manually.
+
+❌ Question 18 — Correct: B
+Your answer: A
+
+Why B is correct
+DynamoDB on-demand mode is the exam’s preferred answer when:
+
+Traffic is spiky
+
+You want to eliminate throttling
+
+You want to avoid overprovisioning
+
+You want minimal operational overhead
+
+Why A is wrong
+Auto Scaling still lags behind sudden spikes — throttling can still occur.
+
+Question 19  
+A company runs a multi-tier application on EC2 instances in private subnets. The application needs to download software updates from the internet. The security team requires that no traffic be routed through the public internet. What should a solutions architect recommend?
+
+A. Use a NAT Gateway in a public subnet.
+B. Use an Internet Gateway with security group restrictions.
+C. Use VPC endpoints for the required services.
+D. Use a VPN connection to a trusted external network.
+
+Question 20  
+A company wants to deploy a new microservices application using Amazon ECS on Fargate. The application requires service-to-service communication with low latency and built-in observability. The company wants to avoid managing service discovery infrastructure. What should a solutions architect recommend?
+
+A. Use AWS App Mesh with Envoy sidecars.
+B. Use Amazon Route 53 private hosted zones.
+C. Use AWS Cloud Map with API-based discovery.
+D. Use an Application Load Balancer for each service.
+
+❌ Question 20 — Correct: A
+Your answer: B
+
+Why A is correct
+For microservices needing:
+low-latency service-to-service communication
+mesh-level observability
+no custom service discovery infra
+AWS App Mesh is the right answer.
+
+Why B is wrong
+Route 53 private hosted zones provide DNS, not:
+retries
+circuit breaking
+telemetry
+mesh routing
+
+Question 21  
+A company needs to store large volumes of time-series data for analytics. The data must be ingested in real time and queried with low latency. The solution must scale automatically and require minimal operational overhead. Which service should a solutions architect recommend?
+
+A. Amazon Redshift
+B. Amazon Timestream
+C. Amazon RDS for PostgreSQL
+D. Amazon DynamoDB
+
+❌ Question 21 — Correct: B
+Your answer: A
+
+Why B is correct
+Amazon Timestream is purpose-built for:
+time-series data
+real-time ingestion
+low-latency queries
+automatic scaling
+minimal ops
+
+Why A is wrong
+Redshift is great for analytics, but:
+not optimized for time-series ingestion
+not real-time
+requires cluster sizing
+
+Question 22  
+A company uses Amazon SQS to decouple a producer and consumer application. The consumer occasionally falls behind, causing the queue length to grow significantly. The company wants to ensure that messages are processed faster during spikes without overprovisioning compute. What should a solutions architect recommend?
+
+A. Increase the SQS visibility timeout.
+B. Use Lambda to poll the queue instead of EC2.
+C. Use an Auto Scaling group for consumers based on ApproximateNumberOfMessages.
+D. Increase the SQS message retention period.
+
+Question 23  
+A company wants to migrate a legacy application to AWS. The application requires a shared file system with SMB support and Active Directory integration. The company wants a fully managed solution. Which service should a solutions architect recommend?
+
+A. Amazon EFS
+B. Amazon FSx for Windows File Server
+C. Amazon FSx for Lustre
+D. Amazon S3 with ACLs
+
+Question 24  
+A company runs a high-performance computing (HPC) workload that requires extremely low-latency, high-throughput shared storage. The workload runs on EC2 instances in a single Availability Zone. What is the MOST appropriate storage solution?
+
+A. Amazon EFS
+B. Amazon FSx for Lustre
+C. Amazon S3
+D. Amazon EBS Multi-Attach
+
+❌ Question 24 — Correct: B
+Your answer: A
+
+Why B is correct
+For HPC workloads needing:
+extreme throughput
+sub-millisecond latency
+POSIX-like semantics
+FSx for Lustre is the exam’s go-to.
+
+Why A is wrong
+EFS is scalable but not HPC-grade.
+
+Question 25  
+A company wants to reduce costs for a batch processing workload that runs nightly on EC2 instances. The workload is fault-tolerant and can be interrupted without issue. What should a solutions architect recommend?
+
+A. Use EC2 Reserved Instances.
+B. Use EC2 Spot Instances with a diversified allocation strategy.
+C. Use EC2 On-Demand Instances with Auto Scaling.
+D. Use AWS Batch with On-Demand compute environments.
+
+Question 26  
+A company uses Amazon RDS for MySQL. The database is experiencing performance issues due to slow queries. The company wants to identify the root cause with minimal performance impact. What should a solutions architect recommend?
+
+A. Enable RDS Performance Insights.
+B. Enable general logging and slow query logging.
+C. Increase the instance size.
+D. Create a read replica and analyze queries there.
+
+❌ Question 26 — Correct: A
+Your answer: D
+
+Why A is correct
+RDS Performance Insights:
+identifies slow SQL
+shows wait events
+has minimal overhead
+is the exam’s preferred diagnostic tool
+
+Why D is wrong
+A read replica still runs the same slow queries — it doesn’t diagnose them.
+
+Question 27  
+A company wants to deploy a new application that requires extremely low-latency access to frequently accessed data. The dataset is small (less than 1 GB) and must be shared across multiple EC2 instances. What should a solutions architect recommend?
+
+A. Amazon DynamoDB with DAX
+B. Amazon ElastiCache for Redis
+C. Amazon EFS
+D. Amazon S3 with Transfer Acceleration
+
+❌ Question 27 — Correct: B
+Your answer: C
+
+Why B is correct
+For:
+extremely low latency
+small dataset (<1 GB)
+shared across EC2 instances
+ElastiCache Redis is the right answer.
+
+Why C is wrong
+EFS is shared, but:
+not low latency
+not memory-speed
+not ideal for hot data
+
+Question 28  
+A company wants to build a multi-Region active-active architecture for a web application. The application stores session data and user profiles. The company wants low-latency reads and writes in each Region and automatic conflict resolution. What should a solutions architect recommend?
+
+A. Amazon Aurora Global Database
+B. Amazon DynamoDB global tables
+C. Amazon ElastiCache Global Datastore
+D. Amazon RDS Multi-AZ
+
+❌ Question 28 — Correct: B
+Your answer: D
+
+Why B is correct
+DynamoDB global tables provide:
+multi-Region active-active
+low-latency reads/writes
+automatic conflict resolution
+fully managed replication
+This is the exact use case.
+
+Why D is wrong
+RDS Multi-AZ is single-Region only.
+
+
+⭐ Correct Answers for Block 2 (Questions 14–28)
+Q#	Correct	Your Answer	Result
+14	C	D	❌
+15	B	B	✅
+16	A	A	✅
+17	B	A	❌
+18	B	A	❌
+19	C	C	✅
+20	A	B	❌
+21	B	A	❌
+22	C	C	✅
+23	B	B	✅
+24	B	A	❌
+25	B	B	✅
+26	A	D	❌
+27	B	C	❌
+28	B	D	❌
+
+🎯 Your Score for Block 2: 7 / 15

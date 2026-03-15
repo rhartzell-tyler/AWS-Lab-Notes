@@ -1,0 +1,194 @@
+Block 4 — Questions 44 to 58
+44:A 45:D 46:B 47:B 48:A 49:B 50:D 51:A 52:B 53:B 54:A 55:A 56:B 57:A 58:B
+
+Question 44  
+A company runs a real-time analytics application using Amazon Kinesis Data Streams. The application must process each record exactly once and must handle sudden spikes in traffic. The company wants to minimize operational overhead. What should a solutions architect recommend?
+
+A. Use Lambda as a consumer with on-demand capacity
+B. Use Kinesis Data Firehose with an S3 destination
+C. Use Kinesis Client Library (KCL) applications running on EC2
+D. Use enhanced fan-out consumers with Lambda
+
+❌ Question 44 — Correct: D
+Your answer: A
+
+Why D is correct
+For Kinesis Data Streams with:
+exactly-once processing
+high throughput
+sudden spikes
+minimal ops
+Enhanced fan-out + Lambda is the exam’s preferred answer.
+Enhanced fan-out gives each consumer its own 2 MB/s pipe — no shared throughput.
+
+Why A is wrong
+Lambda can be a consumer, but without enhanced fan-out it shares shard throughput and can lag.
+
+Question 45  
+A company stores millions of small objects in S3. The application frequently lists objects with a common prefix, and performance has degraded as the number of objects has grown. The company wants to improve list performance without restructuring the bucket. What should a solutions architect recommend?
+
+A. Enable S3 Intelligent-Tiering
+B. Use S3 Inventory
+C. Use S3 Glacier Instant Retrieval
+*D. Use S3 ListObjectsV2 with pagination and prefix filtering
+
+Question 46  
+A company wants to migrate a monolithic application to a microservices architecture using Amazon ECS on Fargate. The application requires distributed tracing across services. What should a solutions architect recommend?
+
+A. Use AWS X-Ray with the X-Ray daemon running as a sidecar
+B. Use CloudTrail logs for tracing
+C. Use VPC Flow Logs
+D. Use CloudWatch Logs Insights
+
+❌ Question 46 — Correct: A
+Your answer: B
+
+Why A is correct
+Distributed tracing across microservices on ECS/Fargate = AWS X-Ray.
+You run the X-Ray daemon as a sidecar.
+
+Why B is wrong
+CloudTrail logs API calls, not application traces.
+
+Question 47  
+A company runs a multi-tier application on EC2 instances. The application stores user-uploaded files on an EBS volume attached to a single instance. The company wants to improve availability and durability without modifying the application code. What should a solutions architect recommend?
+
+A. Use EBS Multi-Attach
+*B. Use Amazon EFS and mount it to all instances
+C. Use S3 and update the application to upload directly to S3
+D. Use EBS snapshots and restore them to new instances during failover
+
+Question 48  
+A company uses Amazon RDS for PostgreSQL. The database is experiencing performance issues due to high read traffic. The company wants to improve read scalability with minimal operational overhead. What should a solutions architect recommend?
+
+*A. Add read replicas
+B. Convert to Aurora PostgreSQL
+C. Increase the instance size
+D. Enable Multi-AZ
+
+Question 49  
+A company needs to store sensitive audit logs for 10 years. Logs must be immutable and protected from deletion. The solution must be cost-effective. What should a solutions architect recommend?
+
+A. S3 Standard with versioning
+*B. S3 Glacier Deep Archive with Object Lock
+C. DynamoDB with point-in-time recovery
+D. EFS with lifecycle management
+
+Question 50  
+A company runs a latency-sensitive application on EC2 instances in a single AZ. The company wants to improve availability but must keep latency between the application and its RDS database as low as possible. What should a solutions architect recommend?
+
+A. Deploy EC2 instances across multiple AZs and enable RDS Multi-AZ
+B. Keep EC2 instances in one AZ and enable RDS Multi-AZ
+C. Deploy EC2 instances across multiple AZs and use RDS read replicas
+D. Deploy EC2 instances in one AZ and use RDS read replicas
+
+❌ Question 50 — Correct: B
+Your answer: D
+
+Why B is correct
+This is the same pattern you saw earlier:
+Latency-sensitive app
+EC2 + RDS
+Must keep app + DB in same AZ
+Still want HA
+Keep EC2 in one AZ + enable RDS Multi-AZ.
+
+Why D is wrong
+Read replicas do not provide HA and do not reduce write latency.
+
+Question 51  
+A company wants to run a containerized workload that requires persistent shared storage with POSIX compliance. The workload must scale automatically and run without managing servers. What should a solutions architect recommend?
+
+*A. ECS on Fargate with EFS
+B. ECS on EC2 with EBS
+C. ECS on Fargate with S3
+D. ECS on EC2 with instance store
+
+Question 52  
+A company uses DynamoDB to store user profiles. The company wants to ensure that stale reads never occur and that all reads reflect the most recent write. What should a solutions architect recommend?
+
+A. Use DynamoDB Streams
+*B. Use strongly consistent reads
+C. Use conditional writes
+D. Use DynamoDB Accelerator (DAX)
+
+Question 53  
+A company wants to migrate a large MySQL database to Amazon Aurora MySQL with minimal downtime. The database must remain writable during the migration. What should a solutions architect recommend?
+
+A. Use mysqldump and import into Aurora
+*B. Use AWS DMS with ongoing replication
+C. Use Aurora Backtrack
+D. Use RDS read replicas
+
+Question 54  
+A company runs a serverless application using API Gateway and Lambda. The company wants to reduce latency for global users. The solution must not require provisioning or managing servers. What should a solutions architect recommend?
+
+*A. Use CloudFront in front of API Gateway
+B. Use Global Accelerator
+C. Use Lambda@Edge
+D. Use Route 53 latency-based routing
+
+Question 55  
+A company runs a high-throughput application that writes data to DynamoDB. The company wants to reduce costs while maintaining high performance. The workload is predictable and steady. What should a solutions architect recommend?
+
+A. Use on-demand capacity mode
+B. Use provisioned capacity with Auto Scaling
+C. Use DynamoDB Accelerator (DAX)
+D. Use DynamoDB Streams
+
+❌ Question 55 — Correct: B
+Your answer: A
+
+Why B is correct
+For DynamoDB with:
+predictable workload
+steady throughput
+desire to reduce cost
+Provisioned capacity with Auto Scaling is the cheapest option.
+
+Why A is wrong
+On-demand is great for spiky workloads — but it’s more expensive for steady workloads.
+
+Question 56  
+A company wants to run a distributed application that requires a shared in-memory cache with microsecond latency. The solution must be fully managed and highly available. What should a solutions architect recommend?
+
+A. DynamoDB with DAX
+B. ElastiCache for Redis with cluster mode disabled
+C. ElastiCache for Memcached
+D. RDS with Multi-AZ
+
+Question 57  
+A company runs a data ingestion pipeline using Amazon Kinesis Data Firehose. The company wants to transform data before delivering it to S3. The transformation must scale automatically and require minimal operational overhead. What should a solutions architect recommend?
+
+A. Use Lambda for data transformation
+B. Use KCL applications on EC2
+C. Use Glue ETL jobs
+D. Use EMR with auto-scaling
+
+Question 58  
+A company wants to deploy a multi-Region active-active application using DynamoDB. The application must support low-latency reads and writes in each Region and automatic conflict resolution. What should a solutions architect recommend?
+
+A. DynamoDB Streams
+B. DynamoDB global tables
+C. DynamoDB Accelerator (DAX)
+D. DynamoDB on-demand mode
+
+⭐ Correct Answers for Block 4 (Questions 44–58)
+Q#	Correct	Your Answer	Result
+44	D	A	❌
+45	D	D	✅
+46	A	B	❌
+47	B	B	✅
+48	A	A	✅
+49	B	B	✅
+50	B	D	❌
+51	A	A	✅
+52	B	B	✅
+53	B	B	✅
+54	A	A	✅
+55	B	A	❌
+56	B	B	✅
+57	A	A	✅
+58	B	B	✅
+🎯 Your Score for Block 4: 10 / 15
+And this block was dense with subtle service tradeoffs — exactly the stuff that separates “knows AWS” from “thinks like AWS.”

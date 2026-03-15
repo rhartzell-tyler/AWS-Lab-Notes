@@ -1,0 +1,222 @@
+Block 3 — Questions 29 to 43
+29:B 30:D 31:B 32:B 33:C 34:C 35:B 36:B 37:A 38:A 39:A 40:B 41:A 42:D 43:B
+
+Question 29  
+A company runs a real-time bidding platform that requires sub‑millisecond latency for reads and writes. The dataset is small (less than 500 MB) and must be replicated across multiple Availability Zones. The company wants a fully managed solution with automatic failover. What should a solutions architect recommend?
+
+A. Amazon DynamoDB with on-demand capacity
+*B. Amazon ElastiCache for Redis with cluster mode disabled
+C. Amazon RDS for MySQL with Multi-AZ
+D. Amazon Aurora Serverless v2
+
+Question 30  
+A company wants to migrate a legacy application to AWS. The application uses a shared NFS file system and requires high throughput and low latency. The company wants a fully managed solution that can scale automatically. Which service should a solutions architect recommend?
+
+A. Amazon EFS
+B. Amazon FSx for Windows File Server
+C. Amazon FSx for Lustre
+D. Amazon S3 with S3 Transfer Acceleration
+
+Question 31  
+A company uses Amazon Redshift for analytics. Queries have become slower due to increased data volume. The company wants to improve performance without increasing cluster size. What should a solutions architect recommend?
+
+A. Enable Redshift Spectrum and offload cold data to S3
+*B. Convert the cluster to RA3 nodes and use managed storage
+C. Add more slices by increasing the node count
+D. Enable concurrency scaling
+
+Question 32  
+A company runs a multi-tenant SaaS application using Amazon Cognito for authentication. Some tenants require integration with their corporate identity providers using SAML. The company wants to support this without creating separate user pools. What should a solutions architect recommend?
+
+A. Create a new user pool for each tenant
+B. Use Cognito identity pools instead of user pools
+C. Configure SAML identity providers within the same user pool
+D. Use AWS SSO for all tenants
+
+❌ Question 32 — Correct: C
+Your answer: B
+
+Why C is correct
+Cognito user pools support:
+
+multiple SAML IdPs
+
+multiple OIDC IdPs
+
+all inside the same user pool
+
+This is the multi-tenant SaaS pattern.
+
+Why B is wrong
+Identity pools ≠ authentication.
+They federate after authentication.
+
+Question 33  
+A company needs to store large binary objects (up to 5 GB each) and must ensure that objects cannot be overwritten or deleted for 7 years. The solution must be cost-effective and meet compliance requirements. What should a solutions architect recommend?
+
+A. S3 Standard with versioning enabled
+B. S3 Glacier Deep Archive with lifecycle policies
+C. S3 with Object Lock in compliance mode
+D. S3 Intelligent-Tiering
+
+Question 34  
+A company runs a high-traffic API on Amazon API Gateway and AWS Lambda. The API must integrate with a legacy SOAP service hosted on-premises. The company wants to minimize latency and avoid exposing the SOAP service directly to the internet. What should a solutions architect recommend?
+
+A. Use a VPC link with a Network Load Balancer pointing to the on-premises service
+B. Use an API Gateway HTTP integration with the SOAP endpoint
+C. Use AWS Direct Connect and call the SOAP service directly from Lambda
+D. Use an SQS queue between API Gateway and the SOAP service
+
+❌ Question 34 — Correct: A
+Your answer: C
+
+Why A is correct
+To integrate API Gateway with an on-prem SOAP service:
+
+Use VPC Link
+
+Connect to an NLB
+
+NLB forwards to on-prem via Direct Connect or VPN
+
+This keeps the SOAP service private and minimizes latency.
+
+Why C is wrong
+Calling the SOAP service directly from Lambda:
+
+exposes the service unless you build a whole VPC + DX/VPN path
+
+doesn’t integrate with API Gateway cleanly
+
+doesn’t solve the “don’t expose SOAP service” requirement
+
+Question 35  
+A company wants to run a containerized workload that requires GPU acceleration. The workload must scale automatically and run without managing servers. What should a solutions architect recommend?
+
+A. Amazon ECS on EC2 with GPU instances
+B. Amazon ECS on Fargate with GPU support
+C. Amazon EKS with managed node groups using GPU instances
+D. AWS Batch with GPU compute environments
+
+❌ Question 35 — Correct: D
+Your answer: B
+
+Why D is correct
+Fargate does not support GPUs.
+AWS Batch does, and it’s fully managed and auto-scales.
+
+Why B is wrong
+Fargate GPU support does not exist.
+
+Question 36  
+A company stores sensitive data in DynamoDB. The security team requires that all access be logged, including which items were accessed and by whom. What should a solutions architect recommend?
+
+A. Enable DynamoDB Streams
+*B. Enable CloudTrail data events for DynamoDB
+C. Use VPC endpoints for DynamoDB
+D. Enable point-in-time recovery
+
+Question 37  
+A company runs a web application behind an Application Load Balancer. The application stores user sessions in memory. During deployments, users are logged out because their sessions are lost. The company wants zero-downtime deployments without modifying application code. What should a solutions architect recommend?
+
+*A. Enable ALB sticky sessions
+B. Use Amazon ElastiCache for Redis for session storage
+C. Deploy using blue/green deployments with AWS CodeDeploy
+D. Use Amazon DynamoDB for session storage
+
+Question 38  
+A company wants to run a distributed application that requires leader election and distributed locking. The solution must be fully managed and highly available. What should a solutions architect recommend?
+
+*A. Amazon DynamoDB with conditional writes
+B. Amazon ElastiCache for Redis with cluster mode enabled
+C. Amazon RDS for PostgreSQL with advisory locks
+D. Amazon S3 with object versioning
+
+Question 39  
+A company wants to migrate a MySQL database to AWS with minimal downtime. The database is 5 TB in size and must remain available during the migration. What should a solutions architect recommend?
+
+*A. Use AWS DMS with ongoing replication
+B. Use mysqldump and import into RDS
+C. Use AWS Snowball Edge
+D. Use RDS read replicas
+
+Question 40  
+A company runs a data processing pipeline using Amazon Kinesis Data Streams. The consumers occasionally fall behind, causing iterator age to increase. The company wants to ensure that consumers can scale automatically. What should a solutions architect recommend?
+
+A. Increase the number of shards
+*B. Use enhanced fan-out consumers
+C. Use Lambda as the consumer
+D. Use Kinesis Data Firehose instead
+
+Question 41  
+A company wants to deploy a multi-Region application using Amazon Aurora Global Database. The application requires low-latency reads in each Region and the ability to promote a secondary Region quickly during a disaster. What should a solutions architect recommend?
+
+A. Use the global reader endpoint for all reads
+B. Use the cluster endpoint in each Region
+C. Use the reader endpoint in each secondary Region
+D. Use the writer endpoint in each Region
+
+❌ Question 41 — Correct: C
+Your answer: A
+
+Why C is correct
+In Aurora Global Database:
+
+Secondary Regions use the reader endpoint
+
+Low-latency reads
+
+Automatic failover promotion path
+
+Why A is wrong
+The global reader endpoint is cross-Region — not optimal for local reads.
+
+Question 42  
+A company wants to store application logs for 5 years. Logs are frequently accessed for the first 30 days and rarely accessed afterward. The company wants to minimize cost. What should a solutions architect recommend?
+
+A. Store logs in S3 Standard and transition to S3 Glacier Deep Archive after 30 days
+B. Store logs in S3 Intelligent-Tiering
+C. Store logs in S3 Standard-IA and transition to S3 Glacier after 30 days
+D. Store logs in S3 One Zone-IA and transition to S3 Glacier Deep Archive after 30 days
+
+❌ Question 42 — Correct: A
+Your answer: D
+
+Why A is correct
+For logs:
+
+S3 Standard for 30 days
+
+Transition to Glacier Deep Archive
+
+This is the cheapest compliant pattern.
+
+Why D is wrong
+One Zone-IA is not appropriate for logs requiring durability.
+
+Question 43  
+A company runs a latency-sensitive application on EC2 instances. The application must communicate with an RDS database with the lowest possible latency. The company also wants high availability. What should a solutions architect recommend?
+
+A. Deploy EC2 instances across multiple AZs and enable RDS Multi-AZ
+B. Deploy EC2 instances in a single AZ and enable RDS Multi-AZ
+C. Deploy EC2 instances across multiple AZs and use RDS read replicas
+D. Deploy EC2 instances in a single AZ and use RDS read replicas
+
+
+
+Q#	Correct	Your Answer	Result
+29	B	B	✅
+30	A	D	❌
+31	B	B	✅
+32	C	B	❌
+33	C	C	✅
+34	A	C	❌
+35	D	B	❌
+36	B	B	✅
+37	A	A	✅
+38	A	A	✅
+39	A	A	✅
+40	B	B	✅
+41	C	A	❌
+42	A	D	❌
+43	B	B	✅
