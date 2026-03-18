@@ -125,6 +125,11 @@ Aurora is AWS’s “distributed storage engine” database — it gives you hig
 ## 🔥 3) Kinesis Scaling Patterns
 Kinesis scaling revolves around shards and consumer throughput isolation. Adding shards increases ingestion capacity. Enhanced fan‑out gives each consumer its own dedicated 2 MB/s pipe, eliminating consumer contention. Lambda consumers are easy but share shard throughput unless enhanced fan‑out is used. Firehose is for delivery, not real‑time processing. The exam tests whether you know when to scale shards, when to use enhanced fan‑out, and when Firehose is the wrong tool.
 
+- Shards = producer scaling
+- Enhanced fan‑out = consumer scaling
+- Firehose = not real‑time
+- Streams = real‑time
+
 ## 🔥 4) Multi‑AZ vs Multi‑Region vs Active‑Active
 Multi‑AZ is high availability within a Region — synchronous replication, automatic failover, zero application changes. Multi‑Region is for disaster recovery, not active traffic — usually asynchronous replication with higher RPO/RTO. Active‑active (like DynamoDB global tables or Aurora Global Database) allows reads and writes in multiple Regions with conflict resolution. The exam tests whether you can match the requirement: HA → Multi‑AZ, DR → Multi‑Region, global low‑latency writes → active‑active.
 
