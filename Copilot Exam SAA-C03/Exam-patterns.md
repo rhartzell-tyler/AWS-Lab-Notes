@@ -13,57 +13,106 @@ These three patterns are classic SAA traps:
 ## ⭐ Pattern Summary for Block 2
 Here are the patterns that tripped you up:
 
-Pattern							Correct AWS Thinking
-Aurora read scaling				Add replicas, use cluster endpoint
-RDS write scaling				Move to Aurora
-DynamoDB throttling				Use on-demand mode
-Microservices mesh				Use App Mesh
-Time-series data				Use Timestream
-HPC storage						FSx for Lustre
-RDS diagnostics					Performance Insights
-Ultra-low-latency 				shared data	ElastiCache Redis
-Multi-Region active-active		DynamoDB global tables
+| Pattern                       | Correct AWS Thinking                                |
+|-------------------------------|------------------------------------------------------|
+| Aurora read scaling           | Add Aurora Replicas and use the cluster endpoint     |
+| RDS write scaling             | Move to Aurora (distributed storage, faster writes)  |
+| DynamoDB throttling           | Switch to On‑Demand mode for unpredictable spikes    |
+| Microservices mesh            | Use AWS App Mesh for service‑to‑service observability |
+| Time‑series data              | Use Amazon Timestream (purpose‑built)                |
+| HPC storage                   | Use FSx for Lustre (ultra‑low latency, high throughput) |
+| RDS diagnostics               | Use Performance Insights for deep DB performance data |
+| Ultra‑low‑latency shared data | Use ElastiCache Redis (microsecond latency)          |
+| Multi‑Region active‑active    | Use DynamoDB Global Tables                           |
+
+**Aurora Endpoints:**
+- Cluster endpoint → Writer (use for writes)
+- Reader endpoint → Load-balanced replicas (use for reads)
+- Instance endpoints → Directly target a specific instance
+
+If the question says “distribute reads”, “load balance reads”, or “scale read traffic” → Reader endpoint.
+Read scaling = adding replicas (general concept)
+Reader distribution = using the Reader endpoint (specific mechanism)
+
+**Aurora (RDS engine):**
+  - Cluster endpoint = writer
+  - Reader endpoint = load-balanced read replicas
+  - Instance endpoints = target specific instances
+
+**Aurora Global Database:**
+  - Adds cross-Region replicas
+  - Adds global endpoints
+  - Does NOT change how cluster/reader endpoints work inside a Region
+
+**Failover**
+- Cluster endpoint → always the writer (role-based)
+- Reader endpoint → always the read replicas (role-based, load-balanced)
+- Instance endpoints → always specific instances (fixed)
+
+
+
+
+
+```
+RDS
+ ├── MySQL
+ ├── PostgreSQL
+ ├── MariaDB
+ ├── Oracle
+ ├── SQL Server
+ └── Aurora
+       ├── Aurora MySQL
+       ├── Aurora PostgreSQL
+       └── Aurora Global Database (optional multi‑Region feature)
+```
 
 
 ## ⭐ Pattern Summary for Block 3
 Here are the patterns that matter:
 
-Pattern							AWS-Preferred Thinking
--NFS shared storage				EFS
--Cognito multi-tenant SAML 		Multiple IdPs in one user pool
--API Gateway → on-prem SOAP 	VPC Link + NLB
--GPU + serverless-ish			AWS Batch
--Aurora Global DB reads			Reader endpoint in each secondary Region
--Log archiving					S3 Standard → Glacier Deep Archive
+| Pattern                         | AWS‑Preferred Thinking                                      |
+|---------------------------------|--------------------------------------------------------------|
+| NFS shared storage              | Use EFS (managed, elastic, POSIX‑compliant)                  |
+| Cognito multi‑tenant SAML       | Multiple IdPs in a single user pool                         |
+| API Gateway → on‑prem SOAP      | VPC Link → NLB → private SOAP service                       |
+| GPU + serverless‑ish workloads  | AWS Batch (managed scheduling + GPU support)                |
+| Aurora Global DB reads          | Use reader endpoint in each secondary Region                |
+| Log archiving                   | S3 Standard → Glacier Deep Archive via lifecycle policies   |
+
 		
 These are high‑value patterns — they show up everywhere in the exam.
 
 ## ⭐ Pattern Summary for Block 4
 Here are the patterns that matter:
 
-Pattern							AWS-Preferred Thinking
-Kinesis scaling					Enhanced fan-out for high throughput consumers
-Microservices tracing			X-Ray with sidecar daemon
-Latency-sensitive EC2 + RDS		EC2 in one AZ + RDS Multi-AZ
-DynamoDB cost optimization		Provisioned + Auto Scaling for steady predictable workloads
+| Pattern                       | AWS‑Preferred Thinking                                      |
+|-------------------------------|--------------------------------------------------------------|
+| Kinesis scaling               | Use Enhanced Fan‑Out for high‑throughput, isolated consumers |
+| Microservices tracing         | Use AWS X‑Ray with the sidecar daemon                       |
+| Latency‑sensitive EC2 + RDS   | Keep EC2 in one AZ + use RDS Multi‑AZ for HA                |
+| DynamoDB cost optimization    | Use Provisioned + Auto Scaling for steady, predictable load |
 
 
-## 📊 Domain Breakdown
+
+# 📊 Domain Breakdown
 Here’s how your performance maps to the official SAA‑C03 domains:
+## AWS Exam Domain Performance Grid
 
-Domain									Your Performance	Notes
-Design Secure Architectures				Strong				IAM, KMS, WAF, Secrets Manager — solid
-Design Resilient Architectures			Moderate			Multi-AZ, failover, active-active patterns need tightening
-Design High-Performing Architectures	Moderate			Aurora vs RDS, DynamoDB modes, Kinesis scaling, caching
-Design Cost-Optimized Architectures		Strong				Lifecycle, storage tiers, compute cost patterns
+| Domain                               | Your Performance | Notes                                                                 |
+|--------------------------------------|------------------|-----------------------------------------------------------------------|
+| Design Secure Architectures          | Strong           | IAM, KMS, WAF, Secrets Manager — solid instincts and pattern clarity  |
+| Design Resilient Architectures       | Moderate         | Multi‑AZ, failover, active‑active patterns need tightening            |
+| Design High‑Performing Architectures | Moderate         | Aurora vs RDS, DynamoDB modes, Kinesis scaling, caching strategies    |
+| Design Cost‑Optimized Architectures  | Strong           | Lifecycle policies, storage tiers, compute cost patterns are solid    |
+
 
 Your biggest gains will come from:
--DynamoDB (on-demand vs provisioned vs DAX)
--Aurora vs RDS tradeoffs
--Kinesis scaling patterns
--Multi-AZ vs multi-Region vs active-active
--EFS vs FSx vs S3
--API Gateway integration patterns
+- DynamoDB (on-demand vs provisioned vs DAX)
+- Aurora vs RDS tradeoffs
+- Kinesis scaling patterns
+- Multi-AZ vs multi-Region vs active-active
+- EFS vs FSx vs S3
+- API Gateway integration patterns
 
 # These are exactly the patterns the exam leans on.
 
@@ -102,6 +151,8 @@ This cluster is about egress patterns. NAT Gateways allow private subnets to rea
 
 ## 🔥 11) Load Balancers: ALB vs NLB vs Gateway Load Balancer
 Load balancers differ by protocol, performance, and use case. ALB is for HTTP/HTTPS, path‑based routing, and microservices. NLB is for ultra‑low latency, millions of connections, and TCP/UDP workloads. Gateway Load Balancer is for inserting third‑party appliances (firewalls, IDS/IPS) into traffic flows. The exam tests whether you can match the traffic type and performance requirement to the correct LB.
+ALB is not a DDoS mitigation tool by itself, but it is protected by AWS Shield Standard and is part of AWS’s recommended architecture for public-facing applications.
+
 
 ## 🔥 12) Storage Tiering and Lifecycle Policies
 AWS expects you to know how to optimize cost by moving data across S3 tiers. S3 Standard for hot data, Standard‑IA for infrequent access, One Zone‑IA for non‑critical data, Glacier for archival, and Glacier Deep Archive for long‑term retention. Lifecycle policies automate transitions. The exam tests whether you can match access patterns and retention requirements to the cheapest tier without violating durability or compliance.
