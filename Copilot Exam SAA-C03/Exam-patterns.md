@@ -125,13 +125,80 @@ Aurora is AWS’s “distributed storage engine” database — it gives you hig
 ## 🔥 3) Kinesis Scaling Patterns
 Kinesis scaling revolves around shards and consumer throughput isolation. Adding shards increases ingestion capacity. Enhanced fan‑out gives each consumer its own dedicated 2 MB/s pipe, eliminating consumer contention. Lambda consumers are easy but share shard throughput unless enhanced fan‑out is used. Firehose is for delivery, not real‑time processing. The exam tests whether you know when to scale shards, when to use enhanced fan‑out, and when Firehose is the wrong tool.
 
-- Shards = producer scaling
-- Enhanced fan‑out = consumer scaling
+- Shards = producer scaling (If producers are throttled → Add shards)
+- Enhanced fan‑out = consumer scaling (If consumers are throttled → Enhanced fan‑out)
 - Firehose = not real‑time
 - Streams = real‑time
 
 ## 🔥 4) Multi‑AZ vs Multi‑Region vs Active‑Active
 Multi‑AZ is high availability within a Region — synchronous replication, automatic failover, zero application changes. Multi‑Region is for disaster recovery, not active traffic — usually asynchronous replication with higher RPO/RTO. Active‑active (like DynamoDB global tables or Aurora Global Database) allows reads and writes in multiple Regions with conflict resolution. The exam tests whether you can match the requirement: HA → Multi‑AZ, DR → Multi‑Region, global low‑latency writes → active‑active.
+
+### 🟪 The exam‑ready cheat sheet
+Here’s the version you can tattoo onto your brain:
+
+**Synchronous = same Region, zero data loss, higher latencyaa**
+RDS Multi‑AZ
+Aurora writer → Aurora replica (same Region)
+
+**Asynchronous = cross‑Region, possible data loss, no write blocking**
+**RDS cross‑Region replicas**
+- Aurora Global Database
+- DynamoDB Global Tables
+- S3 CRR
+- ElastiCache Global Datastore
+- Anything event‑driven (Kinesis, Streams, EventBridge)
+
+### 🟫 How to identify which one the exam wants
+Look for these keywords:
+
+**Synchronous (Multi‑AZ)**
+- “Zero data loss”
+- “Automatic failover”
+- “High availability”
+- “Mission‑critical”
+- “Strong consistency”
+
+**Asynchronous (cross‑Region)**
+- “Disaster recovery”
+- “Replication lag is acceptable”
+- “Global reads”
+- “Low latency for global users”
+- “Eventual consistency”
+
+**The exam trick**
+They want to see if you confuse:
+
+Multi‑AZ (HA)  
+vs
+Cross‑Region (DR)  
+vs
+Global Database (global reads)  
+vs
+Global Tables (active‑active)
+
+### ⭐ Cheat‑Code #1
+If it spans Regions → it is **asynchronous** → **NOT zero data loss**
+This applies to:
+- Aurora Global Database
+- RDS cross‑Region replicas
+- DynamoDB Global Tables
+- S3 CRR
+- ElastiCache Global Datastore
+
+All async.
+All allow some lag.
+None guarantee zero data loss.
+
+### ⭐ Cheat‑Code #2
+If it is zero data loss → it must be **synchronous** → it must be **same Region**
+This applies to:
+- RDS Multi‑AZ
+- Aurora Multi‑AZ
+- Aurora writer → same‑Region replicas
+
+That’s it.
+No exceptions.
+
 
 ## 🔥 5) EFS vs FSx vs S3
 These three are about protocol + performance. EFS is elastic NFS — POSIX‑compliant, shared, scalable, great for microservices and Linux workloads. FSx comes in flavors: FSx for Windows (SMB + AD integration) and FSx for Lustre (HPC, ultra‑low latency, massive throughput). S3 is object storage — durable, cheap, not POSIX, not a file system. The exam tests whether you know which protocol and performance profile matches the workload.
