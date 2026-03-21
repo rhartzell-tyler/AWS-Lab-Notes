@@ -1,4 +1,5 @@
-# ⭐ Pattern Summary for Block 1
+# ⭐ Patterns for Copilot exam Blocks
+## ⭐ Pattern Summary for Block 1
 These three patterns are classic SAA traps:
 
 # AWS Pattern Grid — What AWS Wants vs What AWS Does NOT Want
