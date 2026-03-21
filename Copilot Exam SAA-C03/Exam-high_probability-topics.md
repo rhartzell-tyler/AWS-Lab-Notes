@@ -82,7 +82,9 @@ These aren’t random facts — these are recurring exam levers AWS uses to sepa
 ### What AWS Does NOT Want
 - Peering meshes  
 - IGW for hybrid traffic  
-- Custom DNS servers for AWS service endpoints  
+- Custom DNS servers for AWS service endpoints
+
+Route 53 Resolver endpoints provide hybrid DNS by letting on‑prem DNS resolve AWS names (inbound) and letting AWS resolve on‑prem names (outbound).
 
 ---
 
