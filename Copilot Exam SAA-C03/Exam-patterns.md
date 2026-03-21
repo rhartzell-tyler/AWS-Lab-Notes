@@ -216,6 +216,21 @@ These three are all about fan‑out, decoupling, and event routing, but each has
 ## 🔥 8) Lambda Scaling, Concurrency, and Throttling
 Lambda scales automatically, but concurrency is the real constraint. Reserved concurrency guarantees capacity for a function; provisioned concurrency eliminates cold starts; unreserved concurrency is shared across functions and can cause throttling. SQS → Lambda pipelines require enough concurrency to drain queues during spikes. The exam tests whether you know when to increase concurrency, when to use provisioned concurrency, and when to adjust batch size or visibility timeout.
 
+| Problem							| Fix
+|---------------------------------------|------------------------------------------------------|
+| Queue growing too fast			    | Increase batch size or concurrency
+| Lambda under‑utilized			        | Increase batch size
+| Messages being processed twice	    | Increase visibility timeout
+| Messages stuck too long after failure |	Decrease visibility timeout
+| Lambda timing out	Increase visibility | timeout or reduce batch size
+
+**The exam LOVES these patterns:**
+- If the queue is backing up → increase batch size or concurrency. Batch size is the cheapest fix.
+- If messages are being retried unexpectedly → increase visibility timeout.
+- If Lambda is timing out → increase visibility timeout or reduce batch size.
+- If you need to drain spikes quickly → increase batch size + concurrency.
+- These are the only levers the exam expects you to know.
+
 ## 🔥 9) CloudFront Caching, Origins, and API Acceleration
 CloudFront isn’t just for static content — it’s a global accelerator for APIs, S3, and ALBs. It reduces latency, absorbs traffic spikes, and offloads origin load. Key patterns: cache GETs, use origin failover, and put CloudFront in front of API Gateway to smooth request rates. The exam tests whether you know CloudFront is the first line of defense for performance, cost reduction, and DDoS mitigation.
 
