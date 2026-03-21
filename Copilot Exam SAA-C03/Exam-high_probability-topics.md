@@ -156,6 +156,17 @@ Here’s the flow AWS uses internally:
 - Batch size controls how many messages each Lambda handles
 - Reserved concurrency limits how high Lambda can scale
 
+### 🟣 The clean mental model
+**SQS → Lambda**
+- You control concurrency.
+- Lambda scales based on queue depth.
+- You tune batch size + visibility timeout.
+
+**Kinesis → Lambda**
+- Shards control concurrency.
+- Lambda cannot scale beyond shard count.
+- You tune batch size + batch window.
+
 ---
 
 ## 🟦 8. Observability & Diagnostics
