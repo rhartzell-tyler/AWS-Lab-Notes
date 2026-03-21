@@ -141,7 +141,8 @@ The target service must allow that identity in both:
 - Lambda for long‑running jobs  
 - Lambda for GPU workloads
 
-**How they work together (the “aha” moment)**
+### Lambda + SQS for controlled concurrency
+How they work together (the “aha” moment)
 Here’s the flow AWS uses internally:
 1. Lambda polls SQS
 2. It sees queue depth (e.g., 10,000 messages)
