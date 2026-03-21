@@ -139,7 +139,21 @@ The target service must allow that identity in both:
 ### What AWS Does NOT Want
 - Lambda calling Lambda  
 - Lambda for long‑running jobs  
-- Lambda for GPU workloads  
+- Lambda for GPU workloads
+
+**How they work together (the “aha” moment)**
+Here’s the flow AWS uses internally:
+1. Lambda polls SQS
+2. It sees queue depth (e.g., 10,000 messages)
+3. It pulls messages in batches (batch size = 10)
+4. It spins up concurrency based on how many batches it needs
+5. Reserved concurrency caps how far it can scale
+6. Visibility timeout ensures messages don’t reappear too soon
+
+**The relationship:**
+- Queue depth drives concurrency
+- Batch size controls how many messages each Lambda handles
+- Reserved concurrency limits how high Lambda can scale
 
 ---
 
