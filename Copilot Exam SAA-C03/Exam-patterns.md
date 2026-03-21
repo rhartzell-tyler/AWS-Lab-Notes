@@ -213,6 +213,19 @@ These six clusters are the “AWS instinct” layer — the patterns that let yo
 ## 🔥 7) SQS vs SNS vs EventBridge
 These three are all about fan‑out, decoupling, and event routing, but each has a distinct personality. SQS is point‑to‑point, durable, ordered (FIFO), and used when consumers must process every message. SNS is pub/sub fan‑out with no persistence — subscribers must be online to receive messages. EventBridge is the event router: schema‑aware, rule‑based, cross‑account, and ideal for SaaS integrations or complex routing. The exam tests whether you can match the communication pattern (queueing, broadcasting, routing) to the right service.
 
+### The mental model
+EventBridge is:
+- SNS for AWS services
+- SNS for your own app events
+- A router that can filter, transform, and fan out events
+- A central nervous system for event‑driven systems
+SNS is a megaphone.
+EventBridge is a switchboard.
+
+🔵 Exam‑ready summary
+EventBridge can receive events from AWS services and from your own applications.
+You publish custom events using PutEvents, and rules route them to targets.
+
 ## 🔥 8) Lambda Scaling, Concurrency, and Throttling
 Lambda scales automatically, but concurrency is the real constraint. Reserved concurrency guarantees capacity for a function; provisioned concurrency eliminates cold starts; unreserved concurrency is shared across functions and can cause throttling. SQS → Lambda pipelines require enough concurrency to drain queues during spikes. The exam tests whether you know when to increase concurrency, when to use provisioned concurrency, and when to adjust batch size or visibility timeout.
 
