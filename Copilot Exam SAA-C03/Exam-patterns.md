@@ -2,7 +2,7 @@
 ## ⭐ Pattern Summary for Block 1
 These three patterns are classic SAA traps:
 
-# AWS Pattern Grid — What AWS Wants vs What AWS Does NOT Want
+### AWS Pattern Grid — What AWS Wants vs What AWS Does NOT Want
 
 | Pattern                     | What AWS Wants (Correct Pattern)                     | What AWS Does NOT Want (Common Distractor)          |
 |-----------------------------|-------------------------------------------------------|------------------------------------------------------|
