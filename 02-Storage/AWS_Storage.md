@@ -193,3 +193,7 @@ FSx ONTAP = Enterprise NAS (NFS/SMB/iSCSI)
 FSx OpenZFS = NFS + ZFS features  
 S3 = Object storage (not a file system)**
 
+
+## 🧠 The one‑liner to burn in
+- NAS = shared file storage over the network using NFS/SMB.
+- NetApp ONTAP = enterprise NAS with NFS/SMB/iSCSI and advanced features.
