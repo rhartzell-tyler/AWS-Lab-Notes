@@ -75,6 +75,31 @@ Dedicated, private, high‑bandwidth link from on‑prem to AWS.
 | Connects multiple on‑prem sites | Yes | Yes | Yes (via TGW) |
 | Best for | Simple WAN between sites | Large multi‑VPC networks | High‑bandwidth private link |
 
+
+- Direct Connect Gateway = private Direct Connect routing between on‑prem and multiple VPCs/Regions.
+- CloudHub = VPN‑based transitive routing between multiple on‑prem sites.
+
+- Direct Connect = the physical private circuit.
+- Direct Connect Gateway = the global routing layer that lets you share that circuit across Regions, VPCs, and accounts.
+
+# Direct Connect vs. Direct Connect Gateway
+🧨 Exam traps (these are the ones that got you)**
+❌ “Use Direct Connect to connect to multiple VPCs”
+Wrong → Direct Connect alone cannot do this.  
+Correct → Direct Connect Gateway
+
+❌ “Use Direct Connect to connect to VPCs in multiple Regions”
+- Wrong → Direct Connect is Region‑bound.  
+- Correct → Direct Connect Gateway
+
+❌ “Use Direct Connect for multi‑account hybrid connectivity”
+- Wrong → Direct Connect alone is account‑bound.  
+- Correct → Direct Connect Gateway
+
+❌ “Use Direct Connect for transitive routing between on‑prem sites”
+- Wrong → Direct Connect cannot do transitive routing.  
+- Correct → CloudHub (VPN‑based)
+
 ---
 
 # 🟦 Exam‑Level Takeaways
