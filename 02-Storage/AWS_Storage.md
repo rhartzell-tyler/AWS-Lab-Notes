@@ -197,3 +197,175 @@ S3 = Object storage (not a file system)**
 ## 🧠 The one‑liner to burn in
 - NAS = shared file storage over the network using NFS/SMB.
 - NetApp ONTAP = enterprise NAS with NFS/SMB/iSCSI and advanced features.
+
+# 📁 AWS File System Decision Tree
+### *“If the question says X → choose Y”*
+
+---
+
+## 1. Start With: Does the workload require POSIX?
+
+```
+IF the question says:
+    "POSIX-compliant"
+    "Linux shared file system"
+    "atomic operations"
+    "traditional file system semantics"
+THEN → Choose EFS or FSx for Lustre
+
+IF the question says:
+    "HPC"
+    "massive throughput"
+    "ML training"
+    "S3 integration for fast processing"
+THEN → FSx for Lustre
+
+IF the question says:
+    "general Linux shared storage"
+    "multi-AZ"
+    "serverless"
+    "elastic"
+THEN → EFS
+```
+
+---
+
+## 2. Does the workload require Windows or SMB?
+
+```
+IF the question says:
+    "Windows applications"
+    "Active Directory"
+    "SMB"
+    "Windows file shares"
+    "home directories"
+THEN → FSx for Windows File Server
+```
+
+---
+
+## 3. Does the workload require multi-protocol (NFS + SMB + iSCSI)?
+
+```
+IF the question says:
+    "enterprise NAS"
+    "multi-protocol"
+    "NFS and SMB"
+    "iSCSI"
+    "snapshots, cloning, tiering"
+    "NetApp"
+THEN → FSx for NetApp ONTAP
+```
+
+---
+
+## 4. Does the workload require ZFS features?
+
+```
+IF the question says:
+    "ZFS"
+    "snapshots"
+    "clones"
+    "compression"
+    "Linux workloads needing ZFS semantics"
+THEN → FSx for OpenZFS
+```
+
+---
+
+## 5. Is the workload object-based, not file-based?
+
+```
+IF the question says:
+    "object storage"
+    "no POSIX"
+    "REST API"
+    "static assets"
+    "cloud-native"
+THEN → S3
+```
+
+---
+
+## 6. Is the workload block-based?
+
+```
+IF the question says:
+    "database"
+    "low latency block storage"
+    "raw block device"
+    "attach to EC2"
+THEN → EBS or iSCSI via FSx ONTAP
+
+IF the question says:
+    "ephemeral high-speed local storage"
+THEN → Instance Store
+```
+
+---
+
+## 7. Lift-and-shift enterprise NAS?
+
+```
+IF the question says:
+    "on-prem NetApp migration"
+    "enterprise NAS"
+    "retain snapshots and cloning"
+    "multi-protocol access"
+THEN → FSx for NetApp ONTAP
+```
+
+---
+
+## 8. HPC or extreme throughput?
+
+```
+IF the question says:
+    "HPC"
+    "parallel processing"
+    "high throughput"
+    "ML training"
+    "S3-backed file system"
+THEN → FSx for Lustre
+```
+
+---
+
+## 9. Multi-AZ shared Linux file system?
+
+```
+IF the question says:
+    "multi-AZ"
+    "shared Linux file system"
+    "scale automatically"
+    "serverless"
+THEN → EFS
+```
+
+---
+
+## 10. Windows workloads?
+
+```
+IF the question says:
+    "SMB"
+    "Active Directory"
+    "Windows file server"
+THEN → FSx for Windows File Server
+```
+
+---
+
+## 11. Summary Table (Quick Reference)
+
+| Requirement | Choose |
+|------------|--------|
+| POSIX Linux shared storage | **EFS** |
+| POSIX HPC / ML / extreme throughput | **FSx for Lustre** |
+| Windows / SMB / AD | **FSx for Windows** |
+| Multi-protocol NAS (NFS/SMB/iSCSI) | **FSx for NetApp ONTAP** |
+| ZFS features | **FSx for OpenZFS** |
+| Object storage | **S3** |
+| Block storage | **EBS / iSCSI** |
+| Ephemeral local block | **Instance Store** |
+
