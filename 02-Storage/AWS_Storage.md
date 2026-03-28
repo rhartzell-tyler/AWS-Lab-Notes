@@ -84,3 +84,112 @@ Choose based on **access pattern** (random vs sequential), **latency**, and **sh
 
 ## 8. The Category in One Sentence
 **Storage is the art of choosing the right durability, latency, and cost profile for your data.**
+
+# AWS File System Protocols & Services
+
+## 1. Protocol Comparison Table
+
+| Protocol | Type | OS Support | POSIX? | Use Cases | Notes |
+|---------|------|------------|--------|-----------|-------|
+| **POSIX** | File system semantics | Linux/Unix | ✔️ Yes | HPC, shared Linux workloads, atomic ops | Requires strict file locking, permissions, directory semantics |
+| **NFS (v3/v4)** | Network File System | Linux/Unix | Partial | Shared storage, lift‑and‑shift, web servers | NFS is *not* fully POSIX‑compliant; semantics vary |
+| **SMB / CIFS** | Windows file sharing | Windows | ❌ No | Windows apps, AD integration, home directories | Supports ACLs, Windows locking |
+| **iSCSI / Block** | Block storage | Any OS | N/A | Databases, low‑latency block workloads | Not a file system; OS formats it |
+| **S3 API** | Object storage | Any | ❌ No | Cloud‑native apps, static assets | No POSIX, no directories, no locking |
+
+---
+
+## 2. AWS File System Services & Their Protocols
+
+| AWS Service | Backing Protocol | POSIX? | Best For | Notes |
+|-------------|------------------|--------|----------|-------|
+| **Amazon EFS** | NFSv4 | ✔️ Yes | Linux shared storage, multi‑AZ, multi‑instance | Fully POSIX‑compliant; elastic; serverless |
+| **Amazon FSx for Lustre** | Lustre (POSIX) | ✔️ Yes | HPC, ML training, massive throughput | Integrates with S3; extreme performance |
+| **Amazon FSx for Windows File Server** | SMB | ❌ No | Windows apps, AD integration | Fully managed Windows file server |
+| **Amazon FSx for NetApp ONTAP** | NFS, SMB, iSCSI | Partial POSIX | Enterprise NAS, multi‑protocol | NetApp ONTAP features: snapshots, cloning, tiering |
+| **Amazon FSx for OpenZFS** | NFS | Partial | Linux workloads needing ZFS features | Snapshots, clones, compression |
+| **Instance Store** | Block | N/A | Ephemeral high‑speed storage | Local NVMe; not shared |
+| **EBS** | Block | N/A | Databases, EC2 root volumes | Single‑instance unless Multi‑Attach |
+| **S3** | Object | ❌ No | Cloud‑native storage | Not a file system |
+
+---
+
+## 3. What the Exam Wants You to Know
+
+### **EFS**
+- POSIX‑compliant  
+- Multi‑AZ  
+- Shared Linux file system  
+- NFSv4  
+- Elastic, serverless  
+- Great for web servers, containers, shared config
+
+### **FSx for Lustre**
+- POSIX  
+- HPC workloads  
+- Massive throughput  
+- Integrates with S3  
+- Temporary scratch or persistent modes
+
+### **FSx for Windows**
+- SMB  
+- Windows workloads  
+- Active Directory integration  
+- Home directories, Windows apps
+
+### **FSx for NetApp ONTAP**
+- Multi‑protocol: **NFS, SMB, iSCSI**  
+- Enterprise NAS features: snapshots, cloning, tiering  
+- Great for lift‑and‑shift of on‑prem NetApp systems  
+- Partial POSIX (depends on protocol)
+
+### **FSx for OpenZFS**
+- NFS  
+- ZFS features (snapshots, clones, compression)  
+- Linux workloads needing ZFS semantics
+
+### **S3**
+- Object storage  
+- No POSIX  
+- No directories  
+- No file locking  
+- Not a file system
+
+---
+
+## 4. What NetApp ONTAP Actually Is
+
+**NetApp ONTAP** is an enterprise NAS operating system that supports:
+
+- **NFS** (Linux/Unix)
+- **SMB** (Windows)
+- **iSCSI** (block)
+- Snapshots
+- Thin cloning
+- Tiering
+- Deduplication
+- Compression
+
+AWS’s **FSx for NetApp ONTAP** is a fully managed version of this.
+
+**Why it matters:**  
+It’s the only AWS file system that supports **multi‑protocol access to the same data**.
+
+Example:
+- Windows users access via SMB  
+- Linux servers access via NFS  
+- Databases access via iSCSI  
+
+All pointing to the same underlying storage.
+
+---
+
+## 5. The One‑Sentence Mental Model
+
+**EFS = POSIX Linux shared storage  
+FSx Lustre = POSIX HPC  
+FSx Windows = SMB Windows  
+FSx ONTAP = Enterprise NAS (NFS/SMB/iSCSI)  
+FSx OpenZFS = NFS + ZFS features  
+S3 = Object storage (not a file system)**
+
