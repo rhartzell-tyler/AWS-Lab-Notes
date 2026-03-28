@@ -82,7 +82,9 @@ These aren’t random facts — these are recurring exam levers AWS uses to sepa
 ### What AWS Does NOT Want
 - Peering meshes  
 - IGW for hybrid traffic  
-- Custom DNS servers for AWS service endpoints  
+- Custom DNS servers for AWS service endpoints
+
+Route 53 Resolver endpoints provide hybrid DNS by letting on‑prem DNS resolve AWS names (inbound) and letting AWS resolve on‑prem names (outbound).
 
 ---
 
@@ -137,7 +139,33 @@ The target service must allow that identity in both:
 ### What AWS Does NOT Want
 - Lambda calling Lambda  
 - Lambda for long‑running jobs  
-- Lambda for GPU workloads  
+- Lambda for GPU workloads
+
+### Lambda + SQS for controlled concurrency
+How they work together (the “aha” moment)
+Here’s the flow AWS uses internally:
+1. Lambda polls SQS
+2. It sees queue depth (e.g., 10,000 messages)
+3. It pulls messages in batches (batch size = 10)
+4. It spins up concurrency based on how many batches it needs
+5. Reserved concurrency caps how far it can scale
+6. Visibility timeout ensures messages don’t reappear too soon
+
+**The relationship:**
+- Queue depth drives concurrency
+- Batch size controls how many messages each Lambda handles
+- Reserved concurrency limits how high Lambda can scale
+
+### 🟣 The clean mental model
+**SQS → Lambda**
+- You control concurrency.
+- Lambda scales based on queue depth.
+- You tune batch size + visibility timeout.
+
+**Kinesis → Lambda**
+- Shards control concurrency.
+- Lambda cannot scale beyond shard count.
+- You tune batch size + batch window.
 
 ---
 

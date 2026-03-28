@@ -1,7 +1,8 @@
-# ⭐ Pattern Summary for Block 1
+# ⭐ Patterns for Copilot exam Blocks
+## ⭐ Pattern Summary for Block 1
 These three patterns are classic SAA traps:
 
-# AWS Pattern Grid — What AWS Wants vs What AWS Does NOT Want
+### AWS Pattern Grid — What AWS Wants vs What AWS Does NOT Want
 
 | Pattern                     | What AWS Wants (Correct Pattern)                     | What AWS Does NOT Want (Common Distractor)          |
 |-----------------------------|-------------------------------------------------------|------------------------------------------------------|
@@ -212,8 +213,36 @@ These six clusters are the “AWS instinct” layer — the patterns that let yo
 ## 🔥 7) SQS vs SNS vs EventBridge
 These three are all about fan‑out, decoupling, and event routing, but each has a distinct personality. SQS is point‑to‑point, durable, ordered (FIFO), and used when consumers must process every message. SNS is pub/sub fan‑out with no persistence — subscribers must be online to receive messages. EventBridge is the event router: schema‑aware, rule‑based, cross‑account, and ideal for SaaS integrations or complex routing. The exam tests whether you can match the communication pattern (queueing, broadcasting, routing) to the right service.
 
+### The mental model
+EventBridge is:
+- SNS for AWS services
+- SNS for your own app events
+- A router that can filter, transform, and fan out events
+- A central nervous system for event‑driven systems
+SNS is a megaphone.
+EventBridge is a switchboard.
+
+🔵 Exam‑ready summary
+EventBridge can receive events from AWS services and from your own applications.
+You publish custom events using PutEvents, and rules route them to targets.
+
 ## 🔥 8) Lambda Scaling, Concurrency, and Throttling
 Lambda scales automatically, but concurrency is the real constraint. Reserved concurrency guarantees capacity for a function; provisioned concurrency eliminates cold starts; unreserved concurrency is shared across functions and can cause throttling. SQS → Lambda pipelines require enough concurrency to drain queues during spikes. The exam tests whether you know when to increase concurrency, when to use provisioned concurrency, and when to adjust batch size or visibility timeout.
+
+| Problem							| Fix
+|---------------------------------------|------------------------------------------------------|
+| Queue growing too fast			    | Increase batch size or concurrency
+| Lambda under‑utilized			        | Increase batch size
+| Messages being processed twice	    | Increase visibility timeout
+| Messages stuck too long after failure |	Decrease visibility timeout
+| Lambda timing out	Increase visibility | timeout or reduce batch size
+
+**The exam LOVES these patterns:**
+- If the queue is backing up → increase batch size or concurrency. Batch size is the cheapest fix.
+- If messages are being retried unexpectedly → increase visibility timeout.
+- If Lambda is timing out → increase visibility timeout or reduce batch size.
+- If you need to drain spikes quickly → increase batch size + concurrency.
+- These are the only levers the exam expects you to know.
 
 ## 🔥 9) CloudFront Caching, Origins, and API Acceleration
 CloudFront isn’t just for static content — it’s a global accelerator for APIs, S3, and ALBs. It reduces latency, absorbs traffic spikes, and offloads origin load. Key patterns: cache GETs, use origin failover, and put CloudFront in front of API Gateway to smooth request rates. The exam tests whether you know CloudFront is the first line of defense for performance, cost reduction, and DDoS mitigation.
