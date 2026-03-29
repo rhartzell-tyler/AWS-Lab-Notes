@@ -57,21 +57,111 @@ Exam traps:
 ---
 
 ### B. Auto Scaling (ASG)
-Automatically adjusts EC2 capacity.
+# 🏗️ Auto Scaling Groups (ASG) — Exam‑Proof Mental Model
 
-Key features:
-- Scaling policies (target tracking, step, scheduled)  
+## ⭐ What ASGs Actually Do
+ASGs automatically:
+- Maintain the desired number of EC2 instances
+- Replace unhealthy instances
+- Scale capacity up/down based on demand
+- Distribute instances across multiple AZs
+- Use Launch Templates or Launch Configurations
+
+ASGs are about **capacity, health, and elasticity**.
+
+---
+
+# ⚠️ Exam Traps (Refined and Corrected)
+
+## 1. “ASG replaces unhealthy instances automatically”
+**True — but only if the configured health check marks the instance unhealthy.**
+
+### Exam nuance:
+- If ASG uses **EC2 status checks only**, app failures won’t trigger replacement.
+- If ASG uses **ELB health checks**, then ALB/NLB failing the instance *will* trigger replacement.
+- If the app is failing but EC2 is healthy → **ASG does NOT replace it** unless ELB health checks are enabled.
+
+**Exam‑safe rule:**  
+ASG replaces unhealthy instances *only when the health check source detects the failure*.
+
+---
+
+## 2. “ASG + ALB = classic scalable architecture”
+**True — but incomplete.**
+
+AWS expects you to know the *full* scalable pattern:
+- ASG  
+- ALB  
+- Multi‑AZ  
+- Launch Template  
+- Target Tracking scaling policy  
+
+If the question asks for:
+- “Highly available”
+- “Fault tolerant”
+- “Scalable”
+- “Elastic”
+- “Auto‑healing”
+
+Then **ASG + ALB** is the baseline, but the *complete* exam answer often includes:
+- Multi‑AZ  
 - Health checks  
-- Multi‑AZ resilience  
-- Launch templates  
+- Target tracking  
+- Grace periods  
+- Lifecycle hooks (sometimes)
 
-Use when:
-- You need **elastic capacity**  
-- You need **fault tolerance**  
+**Exam‑safe rule:**  
+ASG + ALB is the foundation, not the whole architecture.
 
-Exam traps:
-- ASG replaces **unhealthy instances automatically**  
-- ASG + ALB = classic scalable architecture  
+---
+
+# 🧠 ASG Health Check Logic (Burn This In)
+
+To allow an instance to be replaced:
+- IAM policy must allow ASG actions  
+- ASG health check must fail  
+- Grace period must have expired  
+
+If any of these are missing → ASG will NOT replace the instance.
+
+---
+
+# 🟦 When to Choose ASG on the Exam
+
+Choose ASG when the question mentions:
+- “Elastic EC2 capacity”
+- “Replace unhealthy instances”
+- “Scale based on CPU/memory/requests”
+- “Multi‑AZ resilience”
+- “Self‑healing infrastructure”
+- “Predictable or unpredictable traffic patterns”
+
+Do **NOT** choose ASG when:
+- You need serverless  
+- You need event‑driven compute  
+- You need container orchestration  
+- You need to scale to zero  
+
+---
+
+# 🟩 Quick Comparison (ASG vs ECS vs Lambda)
+
+| Requirement | Choose |
+|------------|--------|
+| Scale EC2 instances | **ASG** |
+| Run containers | **ECS/EKS** |
+| Event‑driven compute | **Lambda** |
+| Scale to zero | **Lambda** |
+| Lift‑and‑shift EC2 workloads | **ASG** |
+
+---
+
+# 🧩 Final Exam‑Safe Summary
+
+**ASG = EC2 elasticity + health replacement + multi‑AZ resilience.  
+ASG replaces unhealthy instances only when the configured health check fails.  
+ASG + ALB is the classic scalable pattern, but AWS often expects Multi‑AZ + Target Tracking for full credit.**
+
 
 ---
 
