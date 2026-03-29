@@ -89,3 +89,14 @@ Defines the **maximum permissions** for an entire AWS account or OU.
 
 ## 🏁 One‑Sentence Summary  
 **Permissions boundaries restrict IAM identities; SCPs restrict entire accounts. Neither grants permissions — they only limit.**
+
+
+# 🟦 The clean mental model (burn this in)
+**Permissions policy**
+- “What this role can do once assumed.”
+
+**Trust policy**
+- “Who is allowed to assume this role.” (principal)
+
+**STS AssumeRole**
+- “How they actually assume it.”
