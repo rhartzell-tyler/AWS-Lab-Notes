@@ -27,6 +27,7 @@ EC2 → ECS/EKS → Fargate → Lambda → App Runner → Elastic Beanstalk → 
 - **App Runner** → You provide code or container, AWS deploys the app  
 - **Elastic Beanstalk** → You provide code, AWS provisions full stack  
 - **Lightsail** → Simplified VPS for small apps (Virtual Private Servers)
+- **Amplify** → Easiest way to host SSR apps without touching servers or containers (next.js).
 
 ---
 
