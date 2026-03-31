@@ -369,3 +369,4 @@ THEN → FSx for Windows File Server
 | Block storage | **EBS / iSCSI** |
 | Ephemeral local block | **Instance Store** |
 
+`
