@@ -156,3 +156,86 @@ Security Visibility (Findings)
 
 ## 6. The Category in One Sentence
 **Monitoring & Governance is how you see what’s happening, prove what happened, enforce what should happen, and detect what shouldn’t happen.**
+
+
+# 🔺 AWS Monitoring & Governance Triangle
+
+At the highest level, AWS breaks monitoring and governance into **three complementary layers**:
+
+## 1️⃣ CloudTrail — *“Who did what?”*  
+**Control plane auditing**  
+- Records API calls  
+- Captures IAM identity, source IP, timestamps  
+- Tracks configuration changes  
+- Required for compliance and forensics  
+- Organization‑wide trails supported
+
+Use when the question is about:
+- Detecting unauthorized API activity  
+- Auditing changes  
+- Investigating “who deleted/modified/created X”  
+
+---
+
+## 2️⃣ Config — *“What changed?”*  
+**Resource configuration tracking + compliance**  
+- Records configuration state over time  
+- Detects drift  
+- Evaluates rules (managed or custom)  
+- Supports multi‑account aggregation  
+- Integrates with Security Hub
+
+Use when the question is about:
+- Detecting misconfigurations  
+- Enforcing compliance  
+- Tracking resource history  
+- Remediating drift  
+
+---
+
+## 3️⃣ Security Hub — *“Is everything secure?”*  
+**Security posture + findings aggregation**  
+- Aggregates findings from GuardDuty, Inspector, Macie, Config, IAM Access Analyzer  
+- Multi‑account + multi‑Region aggregation  
+- Centralized dashboard  
+- Maps to CIS / PCI / Foundational Security Best Practices
+
+Use when the question is about:
+- Centralizing security findings  
+- Multi‑account security posture  
+- Compliance frameworks  
+- Automated remediation workflows  
+
+---
+
+# ⭐ How They Fit Together
+
+```
+        Security Hub
+     (Security posture)
+            ▲
+            │
+            │ aggregates findings from
+            │
+   CloudTrail ─────── Config
+ (API activity)   (Resource state)
+```
+
+- **CloudTrail** tells you *who* made a change.  
+- **Config** tells you *what* changed and whether it’s compliant.  
+- **Security Hub** tells you *whether your environment is secure overall*.
+
+Together, they form the backbone of AWS governance.
+
+---
+
+# ⭐ Exam‑Ready Summary
+
+- **CloudTrail = API auditing**  
+- **Config = configuration + compliance**  
+- **Security Hub = security posture + findings aggregation**
+
+If a question asks about:
+- *“Who did X?”* → CloudTrail  
+- *“What changed?”* → Config  
+- *“Is this secure?”* → Security Hub  
