@@ -137,7 +137,7 @@ Multi‑AZ is high availability within a Region — synchronous replication, aut
 ### 🟪 The exam‑ready cheat sheet
 Here’s the version you can tattoo onto your brain:
 
-**Synchronous = same Region, zero data loss, higher latencyaa**
+**Synchronous = same Region, zero data loss, higher latency**
 RDS Multi‑AZ
 Aurora writer → Aurora replica (same Region)
 
