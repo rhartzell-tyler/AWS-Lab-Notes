@@ -1,229 +1,284 @@
-# 🗓️ AWS Developer Associate (DVA‑C02) — 28‑Day Study Plan
-### 2 hours per day • Pattern‑driven • Exam‑focused • Architect‑calibrated
+# 📅 Revised 28‑Day DVA Study Plan (Option B)
+**Weekday = 2 hours**  
+**Weekend = 3–4 hours (practice exams + review)**  
+**Includes AWS doc links + daily drills + mental models**
 
 ---
 
-# 📌 Overview
-This plan is built around:
-- *Daily 2‑hour sessions*
-- *Pattern‑driven learning*
-- *Micro‑drills*
-- *Hands‑on reinforcement only where it matters*
-- *Weekly practice exam calibration*
+# WEEK 1 — Lambda Mastery
 
-You’ll internalize the DVA patterns the same way you did for SAA — by building durable mental models, not memorizing trivia.
+## **Day 1 — Lambda Runtime Environment**
+AWS Docs:  
+- https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html  
+- https://docs.aws.amazon.com/lambda/latest/dg/lambda-invocation.html  
 
----
-
-# 🟦 WEEK 1 — Lambda + API Gateway Mastery  
-### Goal: Own the serverless execution model cold.
+Tasks:  
+- Build mental model: *Execution environment lifecycle*  
+- Drill: Cold vs warm start (10 scenarios)
 
 ---
 
-## *Day 1 — Lambda Execution Environment*
-- Read: Lambda lifecycle, warm vs cold starts  
-	- [lambda-runtime-environment](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html)
-- Study: Provisioned concurrency  
-- Drill: Identify cold‑start triggers in 10 scenarios  
-- Artifact: Add Lambda section to your Patterns Bible  
+## **Day 2 — Concurrency & Scaling**
+AWS Docs:  
+- https://docs.aws.amazon.com/lambda/latest/dg/lambda-concurrency.html  
 
-## *Day 2 — Lambda Concurrency & Scaling*
-- Reserved concurrency  
+Tasks:  
+- Reserved vs provisioned concurrency  
 - Account concurrency  
-- SQS → Lambda scaling  
-- Drill: 10 concurrency troubleshooting scenarios  
-
-## *Day 3 — Lambda + VPC*
-- ENI creation  
-- Subnet selection  
-- NAT vs no NAT  
-- Drill: 5 latency‑reduction scenarios  
-
-## *Day 4 — API Gateway Basics*
-- REST vs HTTP APIs  
-- Auth types: IAM, Cognito, Lambda authorizer  
-- Drill: 10 “Which auth method?” scenarios  
-
-## *Day 5 — API Gateway Integrations*
-- Lambda proxy  
-- Mapping templates (VTL)  
-- Caching  
-- Drill: 5 mapping template transformations  
-
-## *Day 6 — Combined Serverless Flows*
-- API Gateway → Lambda → DynamoDB  
-- Error handling  
-- Idempotency  
-- Drill: 10 end‑to‑end flow scenarios  
-
-## *Day 7 — Light Practice Exam (30 questions)*
-- Goal: Identify weak areas  
-- Add notes to Patterns Bible  
+- Scaling behavior  
+- Drill: Concurrency troubleshooting (10 scenarios)
 
 ---
 
-# 🟩 WEEK 2 — DynamoDB + Event‑Driven Patterns  
-### Goal: Master the behaviors AWS tests relentlessly.
+## **Day 3 — Lambda Error Handling & Retries**
+AWS Docs:  
+- https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html  
+- https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html  
+
+Tasks:  
+- Async retry model  
+- DLQs vs on‑failure destinations  
+- Drill: Retry/Failure scenarios
 
 ---
 
-## *Day 8 — DynamoDB Core Developer Patterns*
-- Conditional writes  
-- Optimistic locking  
-- Query vs Scan  
-- Drill: 10 write‑conflict scenarios  
+## **Day 4 — Lambda + VPC**
+AWS Docs:  
+- https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html  
 
-## *Day 9 — DynamoDB Streams*
-- Ordering  
-- Lambda triggers  
-- Use cases  
-- Drill: 5 stream‑processing scenarios  
-
-## *Day 10 — SQS Deep Dive*
-- Visibility timeout  
-- DLQs  
-- Long polling  
-- Drill: 10 SQS troubleshooting scenarios  
-
-## *Day 11 — SNS Patterns*
-- Fan‑out  
-- Retries  
-- Delivery semantics  
-- Drill: 5 SNS/SQS fan‑out scenarios  
-
-## *Day 12 — EventBridge*
-- Event buses  
-- Filtering  
-- Retry behavior  
-- DLQs  
-- Drill: 10 routing/filtering scenarios  
-
-## *Day 13 — Step Functions*
-- Retry blocks  
-- Parallel states  
-- Human approval  
-- Drill: 5 workflow design scenarios  
-
-## *Day 14 — Medium Practice Exam (40–50 questions)*
-- Review only the questions you got wrong  
-- Update Patterns Bible  
+Tasks:  
+- ENIs  
+- Cold start penalties  
+- Drill: VPC cold start scenarios
 
 ---
 
-# 🟧 WEEK 3 — CI/CD + Security + Developer Tools  
-### Goal: Own the developer‑side AWS behaviors.
+## **Day 5 — Lambda Versions & Aliases**
+AWS Docs:  
+- https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html  
 
----
-
-## *Day 15 — CodeBuild*
-- Buildspec  
-- Environment variables  
-- IAM roles  
-- Drill: 5 build failure scenarios  
-
-## *Day 16 — CodePipeline*
-- Stages  
-- Artifacts  
-- Manual approvals  
-- Drill: 5 pipeline troubleshooting scenarios  
-
-## *Day 17 — CodeDeploy*
-- Lambda deployments  
+Tasks:  
 - Traffic shifting  
-- Rollbacks  
-- Drill: 5 deployment scenarios  
+- Safe deployments  
+- Drill: Alias routing scenarios
 
-## *Day 18 — Cognito*
-- User Pools vs Identity Pools  
-- JWTs  
-- Temporary AWS creds  
-- Drill: 10 auth scenarios  
+---
 
-## *Day 19 — STS + SigV4*
-- Temporary credentials  
-- AssumeRole  
-- Signing requests  
-- Drill: 5 SigV4 scenarios  
+## **Weekend (Days 6–7) — Practice Exam #1**
+Use: **Udemy Neal Davis — Exam 1**  
+Tasks:  
+- Take full exam  
+- Review every missed question  
+- Update mental models
 
-## *Day 20 — CloudWatch + X‑Ray*
-- Logs  
+---
+
+# WEEK 2 — API Gateway + Event‑Driven
+
+## **Day 8 — API Gateway Integrations**
+AWS Docs:  
+- https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-api-integration-types.html  
+
+Tasks:  
+- Lambda proxy vs non‑proxy  
+- VTL basics  
+- Drill: Integration selection scenarios
+
+---
+
+## **Day 9 — API Gateway Auth & Throttling**
+AWS Docs:  
+- https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-to-api.html  
+- https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-request-throttling.html  
+
+Tasks:  
+- IAM auth vs Cognito vs Lambda authorizers  
+- Throttling limits  
+- Drill: Auth selection scenarios
+
+---
+
+## **Day 10 — SQS → Lambda**
+AWS Docs:  
+- https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html  
+
+Tasks:  
+- Batch size  
+- Visibility timeout  
+- Scaling behavior  
+- Drill: SQS scaling scenarios
+
+---
+
+## **Day 11 — SNS, EventBridge**
+AWS Docs:  
+- https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html  
+- https://docs.aws.amazon.com/sns/latest/dg/welcome.html  
+
+Tasks:  
+- Event patterns  
+- Retry behavior  
+- Drill: Event routing scenarios
+
+---
+
+## **Day 12 — Step Functions**
+AWS Docs:  
+- https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html  
+
+Tasks:  
+- Service integrations  
+- Error handling  
+- Drill: Step Functions error scenarios
+
+---
+
+## **Weekend (Days 13–14) — Practice Exam #2**
+Use: **Tutorials Dojo — Exam A**  
+Tasks:  
+- Full exam  
+- Deep review  
+- Update mental models
+
+---
+
+# WEEK 3 — DynamoDB + CI/CD
+
+## **Day 15 — DynamoDB Basics**
+AWS Docs:  
+- https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html  
+
+Tasks:  
+- PK/SK  
+- GSIs vs LSIs  
+- Drill: Key design scenarios
+
+---
+
+## **Day 16 — DynamoDB API Behavior**
+AWS Docs:  
+- https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.Errors.html  
+
+Tasks:  
+- Conditional writes  
+- Error codes  
+- Drill: API error scenarios
+
+---
+
+## **Day 17 — DynamoDB Streams + Lambda**
+AWS Docs:  
+- https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html  
+
+Tasks:  
+- Stream processing  
+- Ordering guarantees  
+- Drill: Stream processing scenarios
+
+---
+
+## **Day 18 — CI/CD: CodeBuild + CodePipeline**
+AWS Docs:  
+- https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html  
+- https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html  
+
+Tasks:  
+- Buildspec  
+- Pipeline stages  
+- Drill: CI/CD troubleshooting
+
+---
+
+## **Day 19 — Deployments: SAM + CloudFormation**
+AWS Docs:  
+- https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html  
+- https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html  
+
+Tasks:  
+- SAM transforms  
+- Change sets  
+- Drill: Deployment scenarios
+
+---
+
+## **Weekend (Days 20–21) — Practice Exam #3**
+Use: **Pluralsight — Full Exam**  
+Tasks:  
+- Full exam  
+- Review  
+- Update mental models
+
+---
+
+# WEEK 4 — Final Reinforcement
+
+## **Day 22 — IAM Deep Dive**
+AWS Docs:  
+- https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html  
+
+Tasks:  
+- Policies  
+- Roles  
+- STS  
+- Drill: IAM scenario set
+
+---
+
+## **Day 23 — CloudWatch + X‑Ray**
+AWS Docs:  
+- https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html  
+- https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html  
+
+Tasks:  
 - Metrics  
+- Logs  
 - Tracing  
-- Drill: 10 debugging scenarios  
-
-## *Day 21 — Full Practice Exam (65 questions)*
-- Target score: *70%+*  
-- Review incorrect answers only  
+- Drill: Observability scenarios
 
 ---
 
-# 🟪 WEEK 4 — Integration, Troubleshooting, and Exam Readiness  
-### Goal: Build exam‑ready intuition.
+## **Day 24 — Mixed Domain Drill Day**
+Tasks:  
+- 30 mixed questions from TD  
+- 30 mixed questions from Udemy  
+- Update mental models
 
 ---
 
-## *Day 22 — Serverless Architecture Patterns*
-- API Gateway → Lambda → DynamoDB  
-- SQS buffering  
-- SNS fan‑out  
-- EventBridge routing  
-- Drill: 10 architecture selection scenarios  
+## **Day 25 — Weak Area Reinforcement**
+Tasks:  
+- Identify weakest domain  
+- Re‑read AWS docs  
+- Do 20–30 targeted questions
 
-## *Day 23 — Error Handling & Idempotency*
-- Retries  
-- Backoff  
-- DLQs  
-- Idempotency keys  
-- Drill: 10 error‑handling scenarios  
+---
 
-## *Day 24 — Security & Encryption*
-- KMS  
-- IAM roles  
-- Least privilege  
-- Drill: 10 security scenarios  
+## **Day 26 — Practice Exam #4 (Optional but recommended)**
+Use: **Tutorials Dojo — Exam B**
 
-## *Day 25 — Containers (ECS/ECR/EKS)*
-- ECS Fargate basics  
-- ECR auth  
-- EKS only at a high level  
-- Drill: 5 container deployment scenarios  
+---
 
-## *Day 26 — High‑Value Labs (Optional but helpful)*
-Pick 2–3:
-- Lambda + API Gateway  
-- DynamoDB Streams  
-- SQS → Lambda  
-- CodePipeline  
-
-## *Day 27 — Final Full Practice Exam*
-- Target score: *75%+*  
-- Review only the misses  
-
-## *Day 28 — Exam‑Day Calibration*
+## **Day 27 — Final Review**
+Tasks:  
 - Review Patterns Bible  
-- Review your weak areas  
-- Do 20–30 warm‑up questions  
-- No new topics  
+- Review mental models  
+- Review missed questions
 
 ---
 
-# 🎯 Success Criteria
-You’re ready when:
-- You consistently score *75%+* on practice exams  
-- You can explain the 20 patterns from memory  
-- You can troubleshoot Lambda/API Gateway/DynamoDB/SQS flows intuitively  
-- You feel the exam questions becoming predictable  
+## **Day 28 — Light Day**
+Tasks:  
+- 20 warm‑up questions  
+- No heavy studying  
+- Sleep early
 
 ---
 
-# 🏁 Final Note
-This plan is designed for *your brain*, not a generic student:
-- modular  
-- pattern‑driven  
-- artifact‑anchored  
-- scenario‑heavy  
-- zero wasted motion  
+# ⭐ Summary
+This plan is optimized for:
+- 2 hours/day on weekdays  
+- Practice exams on weekends  
+- Your learning style (pattern‑driven, drill‑heavy)  
+- First‑try pass probability  
 
-You follow this for 28 days and you will be ready.
-
-Let me know when you want the *micro‑drills*, the *Lambda cheat sheet*, or the *API Gateway integration map* — those are the next artifacts in the stack.
+Let me know if you want a **print‑ready version**, a **GitHub‑friendly index**, or a **flashcard set** for the mental models.
