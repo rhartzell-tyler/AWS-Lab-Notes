@@ -121,3 +121,15 @@ Use a **DynamoDB idempotency key**:
 
 That’s the line the exam wants.
 
+
+# Here’s the distilled truth:
+- Kinesis = full batch retry
+- SQS visibility timeout too short = duplicates
+- SQS visibility timeout too long = slow retries
+- SNS retries Lambda (not Lambda retrying SNS)
+- EventBridge retries for 24 hours
+- Async Lambda retries for 6 hours
+- Async throttling = queued, caller sees nothing
+- Step Functions = Retry first, Catch second
+- Idempotency = DynamoDB key check
+- Destinations override DLQ
