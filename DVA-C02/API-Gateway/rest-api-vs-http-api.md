@@ -3,8 +3,8 @@
 ## ⭐ High‑Level Summary
 **REST API = legacy, full‑featured, expensive, VTL‑powered**  
 **HTTP API = modern, fast, cheap, limited features, no VTL**
-**REST API supports direct AWS service integrations via VTL.**
-**HTTP API must use Lambda or ALB to reach other AWS services.**
+**REST API supports direct AWS service integrations via VTL**
+**HTTP API must use Lambda or ALB to reach other AWS services**
 
 ---
 
