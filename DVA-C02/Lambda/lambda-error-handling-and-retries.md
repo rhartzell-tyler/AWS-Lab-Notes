@@ -117,4 +117,7 @@ Use a **DynamoDB idempotency key**:
 - **Visibility timeout < processing time = duplicates**.
 - **EventBridge retry window is 24 hours, not 6**.
 - **Lambda async retry window is 6 hours, not 24**.
+- **Kinesis must preserve strict ordering within a shard**.
+
+That’s the line the exam wants.
 
