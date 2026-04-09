@@ -1,10 +1,10 @@
 # API Gateway REST API vs HTTP API (DVA‑C02 Cheat Sheet)
 
 ## ⭐ High‑Level Summary
-**REST API = legacy, full‑featured, expensive, VTL‑powered**  
-**HTTP API = modern, fast, cheap, limited features, no VTL**
-**REST API supports direct AWS service integrations via VTL**
-**HTTP API must use Lambda or ALB to reach other AWS services**
+- **REST API = legacy, full‑featured, expensive, VTL‑powered**
+- **REST API supports direct AWS service integrations via VTL**  
+- **HTTP API = modern, fast, cheap, limited features, no VTL**
+- **HTTP API must use Lambda or ALB to reach other AWS services**
 
 ---
 
