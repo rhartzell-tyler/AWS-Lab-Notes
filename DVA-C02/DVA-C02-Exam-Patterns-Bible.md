@@ -319,5 +319,179 @@ Pattern‑driven • Scenario‑focused • Zero fluff • Built for fast recall
 **Memory Hook:** *S3 events start workflows.*
 
 ---
+Addendum
+---
+# DVA‑C02 Compute Domain — Missing Patterns Addendum  
+_Additional ECS, Lambda, Beanstalk, and CodeDeploy patterns not included in the core Patterns Bible._
+
+---
+
+## 1. ECS Task Definition Patterns
+
+### 1.1 Environment Variables
+**Plain environment variables**
+- Defined under:  
+  `containerDefinitions[].environment[]`  
+  (inside the **task definition**)
+
+**Sensitive values**
+- Defined under:  
+  `containerDefinitions[].secrets[]`  
+  (values pulled from SSM Parameter Store or Secrets Manager)
+
+**Never** defined in the service definition.
+
+---
+
+### 1.2 Shared Data Between Containers (Sidecar Pattern)
+To allow two containers to share logs, metrics, or files:
+
+- Use **one task definition**
+- Include **both containers** in the task
+- Define a **shared volume** in the task
+- Mount that volume into both containers
+
+Equivalent to a Kubernetes pod with multiple containers.
+
+---
+
+### 1.3 Avoiding Port Conflicts (EC2 Launch Type)
+When multiple containers all listen on port 80:
+
+- `containerPort = 80`
+- `hostPort = 0`  
+  (ECS auto‑assigns an available host port)
+
+This is the **easiest** and exam‑correct pattern.
+
+---
+
+### 1.4 ECS Placement Strategies
+- **binpack** → pack tasks tightly → **minimize number of instances**
+- **spread** → distribute evenly → maximize HA
+- **random** → no optimization
+- **weighted** → capacity provider preference (Spot vs On‑Demand)
+
+---
+
+## 2. Elastic Beanstalk Patterns
+
+### 2.1 Deployment Policies
+- **All at once**  
+  Fastest, but downtime. Reduces capacity.
+
+- **Rolling**  
+  Updates in batches. Reduces capacity.
+
+- **Rolling with additional batch**  
+  Maintains **full capacity** during deployment.  
+  Uses existing instances + a temporary extra batch.
+
+- **Immutable**  
+  Safest. Launches a **new fleet**.  
+  Does *not* use existing instances.
+
+---
+
+### 2.2 Source Bundle Requirements
+- Must be **one ZIP file**
+- Must be **≤ 512 MB**
+- Must **NOT** contain a parent folder
+- `cron.yaml` only required for worker environments
+
+---
+
+## 3. CodeDeploy for Lambda Patterns
+
+### 3.1 Minimal Valid Hook Order
+For Lambda deployments, the simplest valid `appspec.yaml` hook sequence:
+
+```
+BeforeAllowTraffic
+AfterAllowTraffic
+```
+
+This is the exam‑preferred answer when asked for “valid structure.”
+
+---
+
+### 3.2 Traffic Shifting Types
+- **Blue/green** → **fastest** deployment  
+- **Canary** → small % first, then full  
+- **Linear** → equal increments  
+- **In‑place** → reuses same instances, slowest
+
+---
+
+## 4. Lambda Runtime Environment Patterns
+
+### 4.1 AWS SDK Availability
+Lambda runtimes **already include** the AWS SDK for that language:
+- Python → boto3  
+- Node.js → aws‑sdk  
+
+“Least code change” → **use the built‑in SDK**, not a packaged one.
+
+---
+
+### 4.2 Uploading Files to S3
+- Use the **AWS SDK**, not raw HTTP requests  
+- AWS CLI is **not** available in Lambda
+
+---
+
+## 5. AMI / EC2 / CloudFormation Region Patterns
+
+### 5.1 AMI IDs Are Region‑Scoped
+To use a custom AMI in another region:
+
+1. **Copy the AMI** to the target region  
+2. Use the **new AMI ID** in the CloudFormation template
+
+Never reference an AMI from another region directly.
+
+---
+
+## 6. Deployment Pattern Quick‑Reference Table
+
+| Scenario | Correct Pattern |
+|---------|-----------------|
+| Maintain full capacity during Beanstalk deployment | Rolling with additional batch |
+| Fastest ECS/CodeDeploy deployment | Blue/green |
+| Gradual rollout with low risk | Canary or Linear |
+| ECS containers need to share data | One task, shared volume |
+| ECS env vars | `environment` in task definition |
+| ECS secrets | `secrets` in task definition |
+| Avoid port conflicts | hostPort = 0 |
+| Minimize EC2 instances | binpack |
+| Use AMI in another region | Copy AMI |
+
+---
+
+## 7. Mental Models to Lock In
+
+### ECS = Tasks, not Pods
+- Task definition = pod spec  
+- Containers inside task = containers inside pod  
+- Shared volume = shared volume
+
+### Beanstalk = Deployment Policies
+- “Maintain capacity” → Rolling with additional batch  
+- “Fastest” → All at once  
+- “Safest” → Immutable
+
+### Lambda = Built‑in SDK
+- boto3 and aws‑sdk are already there  
+- “Least code change” → use built‑in SDK
+
+### CloudFormation = Region Boundaries
+- AMIs are region‑scoped  
+- Copy before use
+
+---
+
+# End of Compute Addendum
+
+
 
 # END OF FILE
