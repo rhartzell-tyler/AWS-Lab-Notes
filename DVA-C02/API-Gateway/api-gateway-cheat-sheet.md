@@ -59,6 +59,9 @@
 	- SDKs sign automatically.
 	- Required for service‑to‑service calls.
 	- Ensures identity + integrity + timestamp.
+	- SigV4 works for both REST and HTTP APIs.
+	- It is used only when IAM authorization is selected.
+	- Not used for user auth (Cognito), API keys, or public APIs.
 - Machine‑to‑machine  
 - Internal services  
 
