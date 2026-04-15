@@ -53,7 +53,12 @@
 
 # 🔵 3. Authentication & Authorization
 ## **IAM Auth**
-- SigV4 signing  
+- SigV4 signing
+	- SigV4 = AWS’s way of signing HTTP requests.
+	- Used for IAM authentication.
+	- SDKs sign automatically.
+	- Required for service‑to‑service calls.
+	- Ensures identity + integrity + timestamp.
 - Machine‑to‑machine  
 - Internal services  
 
