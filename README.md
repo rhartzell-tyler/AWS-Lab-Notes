@@ -1,4 +1,4 @@
-![This is the goal!!!](SAP-C02.jpg)
+![This is the goal!!!](SAP-C02.jog.jpg)
 # AWS Certification Preparation
 - [SAA-C03](SAA-C03/README.md)
 - [DVA-C02](DVA-C02/DVA-C02-Exam-Prep-Plan.md)
